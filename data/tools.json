@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-03-03T19:29:21.558Z",
+  "lastUpdated": "2026-03-03T19:37:47.805Z",
   "tools": [
     {
       "id": "tool-001",
@@ -20,9 +20,9 @@
       "aiPlatform": "OpenAI",
       "aiLayer": "",
       "category": "",
-      "primaryUseCase": "",
-      "beingUsedBy": "",
-      "owner": "",
+      "primaryUseCase": "Helps build out GRT visions for the team",
+      "beingUsedBy": "GRT",
+      "owner": "Kat",
       "builder": "",
       "status": "",
       "link": "https://chatgpt.com/g/g-695cfbb656bc8191956404c674ce32d1-grt-vision-builder-gpt"
@@ -33,9 +33,9 @@
       "aiPlatform": "OpenAI",
       "aiLayer": "",
       "category": "",
-      "primaryUseCase": "",
-      "beingUsedBy": "",
-      "owner": "",
+      "primaryUseCase": "Helps build out the strategy for the team in the correct SMART format used in the strategy tracker",
+      "beingUsedBy": "GRT",
+      "owner": "Kat",
       "builder": "",
       "status": "",
       "link": ""
