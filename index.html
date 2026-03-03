@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SGM AI Dashboard</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2326153A'/><text x='16' y='22' font-size='18' text-anchor='middle' fill='white'>S</text></svg>">
+</head>
+<body>
+
+  <!-- Background Effects -->
+  <div class="orb-container">
+    <div class="orb orb--1"></div>
+    <div class="orb orb--2"></div>
+  </div>
+  <div class="grain-overlay"></div>
+
+  <div class="portal-page">
+    <!-- The password gate will be injected here by auth.js -->
+    <!-- On successful auth, user is redirected to home.html -->
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (sessionStorage.getItem('sgm_auth') === 'true') {
+        window.location.href = 'home.html';
+      } else {
+        Auth.showGate();
+      }
+    });
+  </script>
+</body>
+</html>

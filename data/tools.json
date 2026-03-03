@@ -1,0 +1,96 @@
+{
+  "lastUpdated": "2026-03-03T10:30:00.000Z",
+  "tools": [
+    {
+      "id": "tool-001",
+      "name": "SGM Content Generator",
+      "aiPlatform": "ChatGPT",
+      "aiLayer": "Application",
+      "category": "Content",
+      "primaryUseCase": "Generates blog posts, social copy, and ad text tailored to client brand voice and tone guidelines",
+      "beingUsedBy": "Content Team",
+      "owner": "Sarah Mitchell",
+      "builder": "Dev Team",
+      "status": "Complete",
+      "link": "https://chat.openai.com/g/g-xxxx"
+    },
+    {
+      "id": "tool-002",
+      "name": "SEO Brief Builder",
+      "aiPlatform": "Claude",
+      "aiLayer": "Prompt",
+      "category": "SEO",
+      "primaryUseCase": "Creates comprehensive SEO content briefs with keyword targets, structure recommendations, and competitor analysis",
+      "beingUsedBy": "SEO Team",
+      "owner": "James Cooper",
+      "builder": "James Cooper",
+      "status": "Complete",
+      "link": "https://claude.ai/project/xxxx"
+    },
+    {
+      "id": "tool-003",
+      "name": "Ad Copy Variant Generator",
+      "aiPlatform": "ChatGPT",
+      "aiLayer": "Application",
+      "category": "PPC",
+      "primaryUseCase": "Produces multiple RSA headline and description variants from a single brief, optimised for character limits",
+      "beingUsedBy": "PPC Team",
+      "owner": "Emma Williams",
+      "builder": "Dev Team",
+      "status": "In Progress",
+      "link": "https://chat.openai.com/g/g-yyyy"
+    },
+    {
+      "id": "tool-004",
+      "name": "Campaign Image Creator",
+      "aiPlatform": "Midjourney",
+      "aiLayer": "Application",
+      "category": "Design",
+      "primaryUseCase": "Generates campaign imagery and social media visuals based on brand guidelines and campaign themes",
+      "beingUsedBy": "Design Team",
+      "owner": "Alex Turner",
+      "builder": "Alex Turner",
+      "status": "In Progress",
+      "link": "https://midjourney.com"
+    },
+    {
+      "id": "tool-005",
+      "name": "Analytics Report Summariser",
+      "aiPlatform": "Claude",
+      "aiLayer": "Workflow",
+      "category": "Analytics",
+      "primaryUseCase": "Takes raw GA4 and ad platform data exports and generates plain-English performance summaries for client reports",
+      "beingUsedBy": "Analytics Team",
+      "owner": "Priya Patel",
+      "builder": "Dev Team",
+      "status": "Not Started",
+      "link": ""
+    },
+    {
+      "id": "tool-006",
+      "name": "Client Onboarding Assistant",
+      "aiPlatform": "ChatGPT",
+      "aiLayer": "Integration",
+      "category": "Operations",
+      "primaryUseCase": "Guides account managers through the client onboarding checklist and auto-drafts welcome emails and kickoff agendas",
+      "beingUsedBy": "Account Management",
+      "owner": "Tom Bradley",
+      "builder": "Tom Bradley",
+      "status": "Blocked",
+      "link": ""
+    },
+    {
+      "id": "tool-007",
+      "name": "Keyword Clustering Engine",
+      "aiPlatform": "Gemini",
+      "aiLayer": "Workflow",
+      "category": "SEO",
+      "primaryUseCase": "Groups large keyword lists into topical clusters and maps them to content hub structures",
+      "beingUsedBy": "SEO Team",
+      "owner": "James Cooper",
+      "builder": "Dev Team",
+      "status": "Ready for Review",
+      "link": "https://docs.google.com/spreadsheets/d/xxxx"
+    }
+  ]
+}

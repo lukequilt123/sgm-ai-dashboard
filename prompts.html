@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SGM AI Dashboard — Prompts</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2326153A'/><text x='16' y='22' font-size='18' text-anchor='middle' fill='white'>S</text></svg>">
+</head>
+<body>
+
+  <!-- Background Effects -->
+  <div class="orb-container">
+    <div class="orb orb--1"></div>
+    <div class="orb orb--2"></div>
+  </div>
+  <div class="grain-overlay"></div>
+
+  <div class="portal-page">
+
+    <!-- Navigation -->
+    <nav class="portal-nav">
+      <a href="home.html">
+        <img
+          src="https://cdn.brandfetch.io/id6AGii4MS/w/396/h/126/theme/dark/logo.png?c=1bxid64Mup7aczewSAYMX&t=1740480772206"
+          alt="Sleeping Giant Media"
+          class="portal-nav__logo"
+        >
+      </a>
+      <button class="portal-nav__hamburger" onclick="document.querySelector('.portal-nav__links').classList.toggle('portal-nav__links--open')" aria-label="Toggle menu">&#9776;</button>
+      <ul class="portal-nav__links">
+        <li><a href="home.html" class="portal-nav__link">Home</a></li>
+        <li><a href="tools.html" class="portal-nav__link">AI Tools</a></li>
+        <li><a href="prompts.html" class="portal-nav__link">Prompts</a></li>
+        <li><a href="claude-code.html" class="portal-nav__link">Claude Code</a></li>
+      </ul>
+    </nav>
+
+    <!-- Content -->
+    <main class="page-content">
+      <div class="section-label">Prompts</div>
+      <h1 class="page-title">Prompt Library</h1>
+      <p class="page-subtitle">A curated collection of battle-tested prompts for the SGM team</p>
+
+      <div class="placeholder-card glass-card fade-in">
+        <div class="placeholder-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </div>
+        <h2 class="placeholder-card__title">Coming Soon</h2>
+        <p class="placeholder-card__text">
+          We are building a searchable library of prompts organised by task type, AI platform, and team.
+          Check back soon for templates you can copy and use straight away.
+        </p>
+      </div>
+    </main>
+
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
