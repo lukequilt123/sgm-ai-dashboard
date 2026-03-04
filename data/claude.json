@@ -1,37 +1,13 @@
 {
-  "lastUpdated": "2026-03-04T10:00:00.000Z",
+  "lastUpdated": "2026-03-04T11:44:58.440Z",
   "items": [
     {
       "id": "claude-001",
-      "name": "Claude Code Getting Started Guide",
-      "itemType": "Guide",
-      "objective": "Step-by-step walkthrough for setting up and using Claude Code in your development workflow",
-      "creator": "Luke",
-      "link": "https://docs.google.com/document/d/example-getting-started"
-    },
-    {
-      "id": "claude-002",
-      "name": "SGM Project Scaffolder",
-      "itemType": "Workflow",
-      "objective": "Automated project setup workflow that creates SGM-standard folder structure and config files",
-      "creator": "Luke",
-      "link": "https://docs.google.com/document/d/example-scaffolder"
-    },
-    {
-      "id": "claude-003",
-      "name": "Code Review Companion",
-      "itemType": "Template",
-      "objective": "Template for using Claude Code to review pull requests against SGM coding standards",
-      "creator": "Sam",
+      "name": "SGM design guide",
+      "itemType": "md file",
+      "objective": "Helps create SGM styled web based pages",
+      "creator": "Luke@sleepinggiantmedia.co.uk",
       "link": ""
-    },
-    {
-      "id": "claude-004",
-      "name": "Data Analysis Pipeline",
-      "itemType": "Workflow",
-      "objective": "Uses Claude Code to process and analyse client data exports, generating summary reports",
-      "creator": "Kat",
-      "link": "https://docs.google.com/document/d/example-data-pipeline"
     }
   ]
 }
