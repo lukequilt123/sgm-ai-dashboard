@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-03-04T11:42:18.995Z",
+  "lastUpdated": "2026-03-04T11:42:34.996Z",
   "tools": [
     {
       "id": "tool-001",
@@ -12,19 +12,6 @@
       "builder": "luke@sleepinggiantmedia.co.uk",
       "owner": "Luke",
       "link": "https://chatgpt.com/g/g-67efa84ff37481919a08b386ce235b68-craft-the-perfect-prompt",
-      "dateAdded": ""
-    },
-    {
-      "id": "tool-002",
-      "name": "Newton - General SGM Helper",
-      "aiPlatform": "OpenAI",
-      "aiType": "Custom GPT / Claude / Gemini",
-      "category": "All",
-      "primaryUseCase": "A GPT that has lots of different information about a range of SGM related topic. This is a direct copy of the one provided to clients.",
-      "promptLink": "",
-      "builder": "luke@sleepinggiantmedia.co.uk",
-      "owner": "",
-      "link": "https://chatgpt.com/g/g-e5o5uadqV-newton-general-sgm-helper",
       "dateAdded": ""
     },
     {
