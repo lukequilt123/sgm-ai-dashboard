@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-03-04T08:15:09.907Z",
+  "lastUpdated": "2026-03-04T08:23:10.761Z",
   "tools": [
     {
       "id": "tool-001",
@@ -9,10 +9,11 @@
       "category": "Custom GPT",
       "primaryUseCase": "All",
       "beingUsedBy": "C.R.A.F.T. stands for Character, Relevance, Ask, Format, Tone — a simple method to create powerful AI prompts that actually get the job done.",
-      "owner": "All",
-      "builder": "Luke",
+      "builder": "All",
+      "owner": "Luke",
       "status": "",
-      "link": ""
+      "link": "",
+      "type": ""
     },
     {
       "id": "tool-002",
@@ -22,23 +23,11 @@
       "category": "Custom GPT",
       "primaryUseCase": "GRT",
       "beingUsedBy": "Helps build out GRT visions for the team",
-      "owner": "GRT",
-      "builder": "Kat",
+      "builder": "GRT",
+      "owner": "Kat",
       "status": "Kat",
-      "link": ""
-    },
-    {
-      "id": "tool-003",
-      "name": "GRT Strategy Tracker",
-      "aiPlatform": "OpenAI",
-      "aiLayer": "Prompt-Based (GPT / Claude / Gemini)",
-      "category": "Custom GPT",
-      "primaryUseCase": "GRT",
-      "beingUsedBy": "Helps build out the strategy for the team in the correct SMART format used in the strategy tracker",
-      "owner": "GRT",
-      "builder": "Kat",
-      "status": "Kat",
-      "link": ""
+      "link": "",
+      "type": "https://chatgpt.com/g/g-695cfbb656bc8191956404c674ce32d1-grt-vision-builder-gpt"
     }
   ]
 }
