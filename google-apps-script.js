@@ -18,17 +18,19 @@
  * - Sheet name: "AI Tools"
  * - Header row: Row 1
  * - Data starts: Row 2
- * - Columns A-J:
+ * - Columns A-L:
  *   A: TOOL NAME
  *   B: AI PLATFORM
  *   C: AI LAYER
  *   D: CATEGORY/POD
  *   E: PRIMARY USE CASE
  *   F: BEING USED BY
- *   G: OWNER (who updates it)
- *   H: BUILDER (who set it up)
+ *   G: BUILDER (who set it up)
+ *   H: OWNER (who updates it)
  *   I: STATUS
  *   J: LINK
+ *   K: TYPE (e.g. Custom GPT, N8N Workflow, Front-end)
+ *   L: ADD TO DASHBOARD (Yes/No — only "Yes" rows are published)
  */
 
 function onOpen() {
@@ -51,7 +53,7 @@ function pushToolsToDashboard() {
   const headerRow = 1;
   const dataStartRow = 2;
   const lastRow = sheet.getLastRow();
-  const lastCol = 10;  // Columns A-J
+  const lastCol = 12;  // Columns A-L
 
   if (lastRow < dataStartRow) {
     ui.alert('No tool data found.');
@@ -68,10 +70,12 @@ function pushToolsToDashboard() {
     CATEGORY: 3,    // D: CATEGORY/POD
     USE_CASE: 4,    // E: PRIMARY USE CASE
     USED_BY: 5,     // F: BEING USED BY
-    OWNER: 6,       // G: OWNER
-    BUILDER: 7,     // H: BUILDER
+    BUILDER: 6,     // G: BUILDER
+    OWNER: 7,       // H: OWNER
     STATUS: 8,      // I: STATUS
-    LINK: 9         // J: LINK
+    LINK: 9,        // J: LINK
+    TYPE: 10,       // K: TYPE
+    DASHBOARD: 11   // L: ADD TO DASHBOARD
   };
 
   const tools = [];
@@ -81,6 +85,10 @@ function pushToolsToDashboard() {
     // Skip rows with no tool name
     if (!row[COL.NAME] || row[COL.NAME].toString().trim() === '') continue;
 
+    // Only include rows where "Add to dashboard" is "Yes"
+    const addToDashboard = row[COL.DASHBOARD] ? row[COL.DASHBOARD].toString().trim().toLowerCase() : '';
+    if (addToDashboard !== 'yes') continue;
+
     tools.push({
       id: 'tool-' + String(i + 1).padStart(3, '0'),
       name:           row[COL.NAME]     ? row[COL.NAME].toString().trim()     : '',
@@ -89,10 +97,11 @@ function pushToolsToDashboard() {
       category:       row[COL.CATEGORY] ? row[COL.CATEGORY].toString().trim() : '',
       primaryUseCase: row[COL.USE_CASE] ? row[COL.USE_CASE].toString().trim() : '',
       beingUsedBy:    row[COL.USED_BY]  ? row[COL.USED_BY].toString().trim()  : '',
-      owner:          row[COL.OWNER]    ? row[COL.OWNER].toString().trim()    : '',
       builder:        row[COL.BUILDER]  ? row[COL.BUILDER].toString().trim()  : '',
+      owner:          row[COL.OWNER]    ? row[COL.OWNER].toString().trim()    : '',
       status:         row[COL.STATUS]   ? row[COL.STATUS].toString().trim()   : '',
-      link:           row[COL.LINK]     ? row[COL.LINK].toString().trim()     : ''
+      link:           row[COL.LINK]     ? row[COL.LINK].toString().trim()     : '',
+      type:           row[COL.TYPE]     ? row[COL.TYPE].toString().trim()     : ''
     });
   }
 

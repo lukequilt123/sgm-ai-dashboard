@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SGM AI Dashboard — Card Design Mockups</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2326153A'/><text x='16' y='22' font-size='18' text-anchor='middle' fill='white'>S</text></svg>">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&display=swap');
+
+    :root {
+      --bg-deepest: #0e0918;
+      --bg-base: #26153a;
+      --bg-elevated: #3c2c4e;
+      --bg-card: rgba(255, 255, 255, 0.03);
+      --bg-card-hover: rgba(255, 255, 255, 0.06);
+      --brand-gradient: linear-gradient(126deg, #ff1cc0 52%, #7f5fce 86%);
+      --brand-pink: #ff1cc0;
+      --brand-purple: #7f5fce;
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.6);
+      --text-muted: rgba(255, 255, 255, 0.35);
+      --border-glass: rgba(255, 255, 255, 0.1);
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-pill: 40px;
+      --shadow-card: 0 2px 4px rgba(0,0,0,0.2), 0 10px 30px rgba(0,0,0,0.15);
+      --shadow-glow: 0 0 30px rgba(127, 95, 206, 0.15), 0 0 60px rgba(255, 28, 192, 0.08);
+      --font-display: 'Oswald', sans-serif;
+      --font-body: 'Open Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-deepest);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Mockup Page Layout ───────────────────── */
+
+    .mockup-header {
+      text-align: center;
+      padding: 60px 24px 20px;
+    }
+    .mockup-header h1 {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 700;
+      text-transform: uppercase;
+      background: var(--brand-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+    .mockup-header p {
+      color: var(--text-secondary);
+      font-size: 15px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .mockup-section {
+      max-width: 1200px;
+      margin: 0 auto 80px;
+      padding: 0 24px;
+    }
+    .mockup-section__label {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      background: var(--brand-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 6px;
+    }
+    .mockup-section__title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    .mockup-section__desc {
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border-glass);
+      margin: 0 24px 60px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ── Shared Card Pieces ───────────────────── */
+
+    .glass {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-card);
+    }
+
+    .platform-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .platform-dot--chatgpt { background: #10a37f; }
+    .platform-dot--claude { background: #d4a574; }
+    .platform-dot--gemini { background: #4285f4; }
+    .platform-dot--midjourney { background: #f5f5f5; }
+
+    .btn-grad {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      background: var(--brand-gradient);
+      border: none;
+      border-radius: var(--radius-pill);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-grad:hover { opacity: 0.85; }
+
+    .arrow-icon {
+      width: 12px;
+      height: 12px;
+    }
+
+    /* ================================================================
+       OPTION A — Compact 4-Column Grid with Slide-Down Reveal
+       ================================================================ */
+
+    .optA-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .optA-card {
+      padding: 20px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+    .optA-card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(255, 28, 192, 0.2);
+      box-shadow: var(--shadow-glow);
+      transform: translateY(-2px);
+    }
+
+    .optA-card__top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .optA-card__platform {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .optA-card__name {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+    .optA-card__category {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 0;
+    }
+
+    /* Hidden details — revealed on hover */
+    .optA-card__details {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity 0.25s ease,
+                  margin-top 0.35s ease;
+      margin-top: 0;
+    }
+    .optA-card:hover .optA-card__details {
+      max-height: 280px;
+      opacity: 1;
+      margin-top: 14px;
+    }
+
+    .optA-card__divider {
+      height: 1px;
+      background: var(--border-glass);
+      margin-bottom: 12px;
+    }
+    .optA-card__desc {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+    .optA-card__meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .optA-card__meta-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+    }
+    .optA-card__meta-value {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    /* ================================================================
+       OPTION B — Dense Row List with Expanding Drawer
+       ================================================================ */
+
+    .optB-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .optB-row {
+      padding: 14px 20px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 100px;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.25s ease;
+      cursor: default;
+    }
+    .optB-row:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(255, 28, 192, 0.2);
+    }
+
+    .optB-row__name {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .optB-row__cell {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+    .optB-row__action {
+      text-align: right;
+    }
+    .optB-row__btn {
+      padding: 6px 14px;
+      font-size: 11px;
+    }
+
+    /* Drawer that appears below on hover */
+    .optB-row__drawer {
+      grid-column: 1 / -1;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, opacity 0.2s ease, padding 0.3s ease;
+      padding: 0 0;
+    }
+    .optB-row:hover .optB-row__drawer {
+      max-height: 200px;
+      opacity: 1;
+      padding: 12px 0 4px;
+    }
+    .optB-row__drawer-inner {
+      display: flex;
+      gap: 32px;
+      border-top: 1px solid var(--border-glass);
+      padding-top: 12px;
+    }
+    .optB-row__drawer-item {
+      flex: 1;
+    }
+    .optB-row__drawer-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+    .optB-row__drawer-value {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Column headers */
+    .optB-header {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 100px;
+      gap: 16px;
+      padding: 0 20px 10px;
+    }
+    .optB-header span {
+      font-family: var(--font-display);
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+    }
+
+    /* ================================================================
+       OPTION C — Minimal Cards with Flip/Overlay on Hover
+       ================================================================ */
+
+    .optC-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .optC-card {
+      position: relative;
+      height: 140px;
+      perspective: 800px;
+      cursor: default;
+    }
+
+    .optC-card__face {
+      position: absolute;
+      inset: 0;
+      padding: 20px;
+      border-radius: var(--radius-sm);
+      backface-visibility: hidden;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .optC-card__front {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-glass);
+      box-shadow: var(--shadow-card);
+    }
+    .optC-card:hover .optC-card__front {
+      transform: rotateY(-180deg);
+    }
+
+    .optC-card__back {
+      transform: rotateY(180deg);
+      background: rgba(38, 21, 58, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 28, 192, 0.25);
+      box-shadow: var(--shadow-glow);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    .optC-card:hover .optC-card__back {
+      transform: rotateY(0deg);
+    }
+
+    .optC-card__front-top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .optC-card__front-name {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+    .optC-card__front-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .optC-card__front-category {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .optC-card__front-hint {
+      font-size: 10px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .optC-card__back-name {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--brand-pink);
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+    .optC-card__back-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 10px;
+      flex: 1;
+    }
+    .optC-card__back-meta {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 10px;
+    }
+    .optC-card__back-meta-label {
+      font-size: 9px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+    }
+    .optC-card__back-meta-value {
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    .optC-card__back-btn {
+      padding: 6px 14px;
+      font-size: 10px;
+      align-self: flex-start;
+    }
+
+    /* ================================================================
+       OPTION D — Tight Grid with Floating Detail Popover
+       ================================================================ */
+
+    .optD-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    .optD-card {
+      padding: 16px;
+      text-align: center;
+      transition: all 0.25s ease;
+      cursor: default;
+      position: relative;
+    }
+    .optD-card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(255, 28, 192, 0.2);
+      box-shadow: var(--shadow-glow);
+      transform: translateY(-2px);
+    }
+
+    .optD-card__icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 10px;
+      font-size: 18px;
+      font-weight: 700;
+      font-family: var(--font-display);
+    }
+    .optD-card__icon--chatgpt { background: rgba(16, 163, 127, 0.15); color: #10a37f; }
+    .optD-card__icon--claude { background: rgba(212, 165, 116, 0.15); color: #d4a574; }
+    .optD-card__icon--gemini { background: rgba(66, 133, 244, 0.15); color: #4285f4; }
+    .optD-card__icon--midjourney { background: rgba(245, 245, 245, 0.15); color: #f5f5f5; }
+
+    .optD-card__name {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: var(--text-primary);
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+    .optD-card__sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Floating popover on hover */
+    .optD-card__popover {
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%) translateY(8px);
+      width: 280px;
+      padding: 18px;
+      background: rgba(38, 21, 58, 0.97);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 28, 192, 0.25);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-glow), 0 20px 40px rgba(0,0,0,0.4);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      z-index: 100;
+      text-align: left;
+    }
+    .optD-card__popover::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 8px solid transparent;
+      border-top-color: rgba(255, 28, 192, 0.25);
+    }
+    .optD-card:hover .optD-card__popover {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .optD-pop__name {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .optD-pop__platform {
+      font-size: 11px;
+      color: var(--brand-pink);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .optD-pop__desc {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+    .optD-pop__meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .optD-pop__meta-label {
+      font-size: 9px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+    }
+    .optD-pop__meta-value {
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+    .optD-pop__btn {
+      padding: 6px 14px;
+      font-size: 10px;
+    }
+
+    /* ── Responsive ───────────────────────────── */
+    @media (max-width: 1024px) {
+      .optA-grid { grid-template-columns: repeat(3, 1fr); }
+      .optC-grid { grid-template-columns: repeat(3, 1fr); }
+      .optD-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .optA-grid { grid-template-columns: repeat(2, 1fr); }
+      .optB-row { grid-template-columns: 1fr 1fr 80px; }
+      .optB-row__cell:nth-child(3),
+      .optB-row__cell:nth-child(4) { display: none; }
+      .optB-header span:nth-child(3),
+      .optB-header span:nth-child(4) { display: none; }
+      .optB-header { grid-template-columns: 1fr 1fr 80px; }
+      .optC-grid { grid-template-columns: repeat(2, 1fr); }
+      .optD-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mockup-header">
+    <h1>Card Design Mockups</h1>
+    <p>Four layout options for the AI Tools page. Hover over the cards to see the expanded detail interactions. No status badges or type tags — just clean, compact tiles.</p>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════════
+       OPTION A — Compact 4-col grid, slide-down reveal on hover
+       ════════════════════════════════════════════════════════════ -->
+
+  <section class="mockup-section">
+    <div class="mockup-section__label">Option A</div>
+    <h2 class="mockup-section__title">Compact Grid — Slide-Down Reveal</h2>
+    <p class="mockup-section__desc">4 columns of compact cards showing name, platform, and category. Hover to slide open description, metadata, and action button.</p>
+
+    <div class="optA-grid">
+
+      <div class="optA-card glass">
+        <div class="optA-card__top">
+          <span class="platform-dot platform-dot--chatgpt"></span>
+          <span class="optA-card__platform">ChatGPT</span>
+        </div>
+        <div class="optA-card__name">SGM Content Generator</div>
+        <div class="optA-card__category">Content</div>
+        <div class="optA-card__details">
+          <div class="optA-card__divider"></div>
+          <p class="optA-card__desc">Generates blog posts, social copy, and ad text tailored to client brand voice and tone guidelines</p>
+          <div class="optA-card__meta">
+            <div><div class="optA-card__meta-label">Layer</div><div class="optA-card__meta-value">Application</div></div>
+            <div><div class="optA-card__meta-label">Category</div><div class="optA-card__meta-value">Content</div></div>
+            <div><div class="optA-card__meta-label">Owner</div><div class="optA-card__meta-value">Sarah Mitchell</div></div>
+            <div><div class="optA-card__meta-label">Used By</div><div class="optA-card__meta-value">Content Team</div></div>
+          </div>
+          <a href="#" class="btn-grad">Open Tool <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+
+      <div class="optA-card glass">
+        <div class="optA-card__top">
+          <span class="platform-dot platform-dot--claude"></span>
+          <span class="optA-card__platform">Claude</span>
+        </div>
+        <div class="optA-card__name">SEO Brief Builder</div>
+        <div class="optA-card__category">SEO</div>
+        <div class="optA-card__details">
+          <div class="optA-card__divider"></div>
+          <p class="optA-card__desc">Creates comprehensive SEO content briefs with keyword targets, structure recommendations, and competitor analysis</p>
+          <div class="optA-card__meta">
+            <div><div class="optA-card__meta-label">Layer</div><div class="optA-card__meta-value">Prompt</div></div>
+            <div><div class="optA-card__meta-label">Category</div><div class="optA-card__meta-value">SEO</div></div>
+            <div><div class="optA-card__meta-label">Owner</div><div class="optA-card__meta-value">James Cooper</div></div>
+            <div><div class="optA-card__meta-label">Used By</div><div class="optA-card__meta-value">SEO Team</div></div>
+          </div>
+          <a href="#" class="btn-grad">Open Tool <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+
+      <div class="optA-card glass">
+        <div class="optA-card__top">
+          <span class="platform-dot platform-dot--chatgpt"></span>
+          <span class="optA-card__platform">ChatGPT</span>
+        </div>
+        <div class="optA-card__name">Ad Copy Variant Generator</div>
+        <div class="optA-card__category">PPC</div>
+        <div class="optA-card__details">
+          <div class="optA-card__divider"></div>
+          <p class="optA-card__desc">Produces multiple RSA headline and description variants from a single brief, optimised for character limits</p>
+          <div class="optA-card__meta">
+            <div><div class="optA-card__meta-label">Layer</div><div class="optA-card__meta-value">Application</div></div>
+            <div><div class="optA-card__meta-label">Category</div><div class="optA-card__meta-value">PPC</div></div>
+            <div><div class="optA-card__meta-label">Owner</div><div class="optA-card__meta-value">Emma Williams</div></div>
+            <div><div class="optA-card__meta-label">Used By</div><div class="optA-card__meta-value">PPC Team</div></div>
+          </div>
+          <a href="#" class="btn-grad">Open Tool <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+
+      <div class="optA-card glass">
+        <div class="optA-card__top">
+          <span class="platform-dot platform-dot--midjourney"></span>
+          <span class="optA-card__platform">Midjourney</span>
+        </div>
+        <div class="optA-card__name">Campaign Image Creator</div>
+        <div class="optA-card__category">Design</div>
+        <div class="optA-card__details">
+          <div class="optA-card__divider"></div>
+          <p class="optA-card__desc">Generates campaign imagery and social media visuals based on brand guidelines and campaign themes</p>
+          <div class="optA-card__meta">
+            <div><div class="optA-card__meta-label">Layer</div><div class="optA-card__meta-value">Application</div></div>
+            <div><div class="optA-card__meta-label">Category</div><div class="optA-card__meta-value">Design</div></div>
+            <div><div class="optA-card__meta-label">Owner</div><div class="optA-card__meta-value">Alex Turner</div></div>
+            <div><div class="optA-card__meta-label">Used By</div><div class="optA-card__meta-value">Design Team</div></div>
+          </div>
+          <a href="#" class="btn-grad">Open Tool <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+
+      <div class="optA-card glass">
+        <div class="optA-card__top">
+          <span class="platform-dot platform-dot--claude"></span>
+          <span class="optA-card__platform">Claude</span>
+        </div>
+        <div class="optA-card__name">Analytics Report Summariser</div>
+        <div class="optA-card__category">Analytics</div>
+        <div class="optA-card__details">
+          <div class="optA-card__divider"></div>
+          <p class="optA-card__desc">Takes raw GA4 and ad platform data exports and generates plain-English performance summaries for client reports</p>
+          <div class="optA-card__meta">
+            <div><div class="optA-card__meta-label">Layer</div><div class="optA-card__meta-value">Workflow</div></div>
+            <div><div class="optA-card__meta-label">Category</div><div class="optA-card__meta-value">Analytics</div></div>
+            <div><div class="optA-card__meta-label">Owner</div><div class="optA-card__meta-value">Priya Patel</div></div>
+            <div><div class="optA-card__meta-label">Used By</div><div class="optA-card__meta-value">Analytics Team</div></div>
+          </div>
+          <a href="#" class="btn-grad">Open Tool <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+
+      <div class="optA-card glass">
+        <div class="optA-card__top">
+          <span class="platform-dot platform-dot--chatgpt"></span>
+          <span class="optA-card__platform">ChatGPT</span>
+        </div>
+        <div class="optA-card__name">Client Onboarding Assistant</div>
+        <div class="optA-card__category">Operations</div>
+        <div class="optA-card__details">
+          <div class="optA-card__divider"></div>
+          <p class="optA-card__desc">Guides account managers through the client onboarding checklist and auto-drafts welcome emails and kickoff agendas</p>
+          <div class="optA-card__meta">
+            <div><div class="optA-card__meta-label">Layer</div><div class="optA-card__meta-value">Integration</div></div>
+            <div><div class="optA-card__meta-label">Category</div><div class="optA-card__meta-value">Operations</div></div>
+            <div><div class="optA-card__meta-label">Owner</div><div class="optA-card__meta-value">Tom Bradley</div></div>
+            <div><div class="optA-card__meta-label">Used By</div><div class="optA-card__meta-value">Account Management</div></div>
+          </div>
+          <a href="#" class="btn-grad">Open Tool <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+
+      <div class="optA-card glass">
+        <div class="optA-card__top">
+          <span class="platform-dot platform-dot--gemini"></span>
+          <span class="optA-card__platform">Gemini</span>
+        </div>
+        <div class="optA-card__name">Keyword Clustering Engine</div>
+        <div class="optA-card__category">SEO</div>
+        <div class="optA-card__details">
+          <div class="optA-card__divider"></div>
+          <p class="optA-card__desc">Groups large keyword lists into topical clusters and maps them to content hub structures</p>
+          <div class="optA-card__meta">
+            <div><div class="optA-card__meta-label">Layer</div><div class="optA-card__meta-value">Workflow</div></div>
+            <div><div class="optA-card__meta-label">Category</div><div class="optA-card__meta-value">SEO</div></div>
+            <div><div class="optA-card__meta-label">Owner</div><div class="optA-card__meta-value">James Cooper</div></div>
+            <div><div class="optA-card__meta-label">Used By</div><div class="optA-card__meta-value">SEO Team</div></div>
+          </div>
+          <a href="#" class="btn-grad">Open Tool <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ════════════════════════════════════════════════════════════
+       OPTION B — List/Table Rows with Expanding Drawer
+       ════════════════════════════════════════════════════════════ -->
+
+  <section class="mockup-section">
+    <div class="mockup-section__label">Option B</div>
+    <h2 class="mockup-section__title">List View — Expanding Drawer</h2>
+    <p class="mockup-section__desc">Horizontal rows showing key info at a glance. Hover expands a detail drawer below each row with description and metadata.</p>
+
+    <div class="optB-header">
+      <span>Tool</span>
+      <span>Platform</span>
+      <span>Category</span>
+      <span>Owner</span>
+      <span></span>
+    </div>
+
+    <div class="optB-list">
+
+      <div class="optB-row glass">
+        <div class="optB-row__name">
+          <span class="platform-dot platform-dot--chatgpt"></span>
+          SGM Content Generator
+        </div>
+        <div class="optB-row__cell">ChatGPT</div>
+        <div class="optB-row__cell">Content</div>
+        <div class="optB-row__cell">Sarah Mitchell</div>
+        <div class="optB-row__action"><a href="#" class="btn-grad optB-row__btn">Open <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a></div>
+        <div class="optB-row__drawer">
+          <div class="optB-row__drawer-inner">
+            <div class="optB-row__drawer-item"><div class="optB-row__drawer-label">Description</div><div class="optB-row__drawer-value">Generates blog posts, social copy, and ad text tailored to client brand voice and tone guidelines</div></div>
+            <div class="optB-row__drawer-item"><div class="optB-row__drawer-label">AI Layer</div><div class="optB-row__drawer-value">Application</div></div>
+            <div class="optB-row__drawer-item"><div class="optB-row__drawer-label">Used By</div><div class="optB-row__drawer-value">Content Team</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="optB-row glass">
+        <div class="optB-row__name">
+          <span class="platform-dot platform-dot--claude"></span>
+          SEO Brief Builder
+        </div>
+        <div class="optB-row__cell">Claude</div>
+        <div class="optB-row__cell">SEO</div>
+        <div class="optB-row__cell">James Cooper</div>
+        <div class="optB-row__action"><a href="#" class="btn-grad optB-row__btn">Open <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a></div>
+        <div class="optB-row__drawer">
+          <div class="optB-row__drawer-inner">
+            <div class="optB-row__drawer-item"><div class="optB-row__drawer-label">Description</div><div class="optB-row__drawer-value">Creates comprehensive SEO content briefs with keyword targets, structure recommendations, and competitor analysis</div></div>
+            <div class="optB-row__drawer-item"><div class="optB-row__drawer-label">AI Layer</div><div class="optB-row__drawer-value">Prompt</div></div>
+            <div class="optB-row__drawer-item"><div class="optB-row__drawer-label">Used By</div><div class="optB-row__drawer-value">SEO Team</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="optB-row glass">
+        <div class="optB-row__name">
+          <span class="platform-dot platform-dot--chatgpt"></span>
+          Ad Copy Variant Generator
+        </div>
+        <div class="optB-row__cell">ChatGPT</div>
+        <div class="optB-row__cell">PPC</div>
+        <div class="optB-row__cell">Emma Williams</div>
+        <div class="optB-row__action"><a href="#" class="btn-grad optB-row__btn">Open <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a></div>
+        <div class="optB-row__drawer">
+          <div class="optB-row__drawer-inner">
+            <div class="optB-row__drawer-item"><div class="optB-row__drawer-label">Description</div><div class="optB-row__drawer-value">Produces multiple RSA headline and description variants from a single brief, optimised for character limits</div></div>
+            <div class="optB-row__drawer-item"><div class="optB-row__drawer-label">AI Layer</div><div class="optB-row__drawer-value">Application</div></div>
+            <div class="optB-row__drawer-item"><div class="optB-row__drawer-label">Used By</div><div class="optB-row__drawer-value">PPC Team</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="optB-row glass">
+        <div class="optB-row__name">
+          <span class="platform-dot platform-dot--midjourney"></span>
+          Campaign Image Creator
+        </div>
+        <div class="optB-row__cell">Midjourney</div>
+        <div class="optB-row__cell">Design</div>
+        <div class="optB-row__cell">Alex Turner</div>
+        <div class="optB-row__action"><a href="#" class="btn-grad optB-row__btn">Open <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a></div>
+        <div class="optB-row__drawer">
+          <div class="optB-row__drawer-inner">
+            <div class="optB-row__drawer-item"><div class="optB-row__drawer-label">Description</div><div class="optB-row__drawer-value">Generates campaign imagery and social media visuals based on brand guidelines and campaign themes</div></div>
+            <div class="optB-row__drawer-item"><div class="optB-row__drawer-label">AI Layer</div><div class="optB-row__drawer-value">Application</div></div>
+            <div class="optB-row__drawer-item"><div class="optB-row__drawer-label">Used By</div><div class="optB-row__drawer-value">Design Team</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="optB-row glass">
+        <div class="optB-row__name">
+          <span class="platform-dot platform-dot--claude"></span>
+          Analytics Report Summariser
+        </div>
+        <div class="optB-row__cell">Claude</div>
+        <div class="optB-row__cell">Analytics</div>
+        <div class="optB-row__cell">Priya Patel</div>
+        <div class="optB-row__action"><a href="#" class="btn-grad optB-row__btn">Open <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a></div>
+        <div class="optB-row__drawer">
+          <div class="optB-row__drawer-inner">
+            <div class="optB-row__drawer-item"><div class="optB-row__drawer-label">Description</div><div class="optB-row__drawer-value">Takes raw GA4 and ad platform data exports and generates plain-English performance summaries for client reports</div></div>
+            <div class="optB-row__drawer-item"><div class="optB-row__drawer-label">AI Layer</div><div class="optB-row__drawer-value">Workflow</div></div>
+            <div class="optB-row__drawer-item"><div class="optB-row__drawer-label">Used By</div><div class="optB-row__drawer-value">Analytics Team</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="optB-row glass">
+        <div class="optB-row__name">
+          <span class="platform-dot platform-dot--chatgpt"></span>
+          Client Onboarding Assistant
+        </div>
+        <div class="optB-row__cell">ChatGPT</div>
+        <div class="optB-row__cell">Operations</div>
+        <div class="optB-row__cell">Tom Bradley</div>
+        <div class="optB-row__action"><a href="#" class="btn-grad optB-row__btn">Open <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a></div>
+        <div class="optB-row__drawer">
+          <div class="optB-row__drawer-inner">
+            <div class="optB-row__drawer-item"><div class="optB-row__drawer-label">Description</div><div class="optB-row__drawer-value">Guides account managers through the client onboarding checklist and auto-drafts welcome emails and kickoff agendas</div></div>
+            <div class="optB-row__drawer-item"><div class="optB-row__drawer-label">AI Layer</div><div class="optB-row__drawer-value">Integration</div></div>
+            <div class="optB-row__drawer-item"><div class="optB-row__drawer-label">Used By</div><div class="optB-row__drawer-value">Account Management</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="optB-row glass">
+        <div class="optB-row__name">
+          <span class="platform-dot platform-dot--gemini"></span>
+          Keyword Clustering Engine
+        </div>
+        <div class="optB-row__cell">Gemini</div>
+        <div class="optB-row__cell">SEO</div>
+        <div class="optB-row__cell">James Cooper</div>
+        <div class="optB-row__action"><a href="#" class="btn-grad optB-row__btn">Open <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a></div>
+        <div class="optB-row__drawer">
+          <div class="optB-row__drawer-inner">
+            <div class="optB-row__drawer-item"><div class="optB-row__drawer-label">Description</div><div class="optB-row__drawer-value">Groups large keyword lists into topical clusters and maps them to content hub structures</div></div>
+            <div class="optB-row__drawer-item"><div class="optB-row__drawer-label">AI Layer</div><div class="optB-row__drawer-value">Workflow</div></div>
+            <div class="optB-row__drawer-item"><div class="optB-row__drawer-label">Used By</div><div class="optB-row__drawer-value">SEO Team</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ════════════════════════════════════════════════════════════
+       OPTION C — Minimal Cards with 3D Flip on Hover
+       ════════════════════════════════════════════════════════════ -->
+
+  <section class="mockup-section">
+    <div class="mockup-section__label">Option C</div>
+    <h2 class="mockup-section__title">Flip Cards — 3D Reveal</h2>
+    <p class="mockup-section__desc">Clean front face with name, platform, and category. Hover flips the card to reveal description, metadata, and action button on the back.</p>
+
+    <div class="optC-grid">
+
+      <div class="optC-card">
+        <div class="optC-card__face optC-card__front">
+          <div>
+            <div class="optC-card__front-top">
+              <span class="platform-dot platform-dot--chatgpt"></span>
+              <span class="optA-card__platform">ChatGPT</span>
+            </div>
+            <div class="optC-card__front-name">SGM Content Generator</div>
+          </div>
+          <div class="optC-card__front-bottom">
+            <span class="optC-card__front-category">Content</span>
+            <span class="optC-card__front-hint">Hover for details</span>
+          </div>
+        </div>
+        <div class="optC-card__face optC-card__back">
+          <div class="optC-card__back-name">SGM Content Generator</div>
+          <p class="optC-card__back-desc">Generates blog posts, social copy, and ad text tailored to client brand voice and tone guidelines</p>
+          <div class="optC-card__back-meta">
+            <div><div class="optC-card__back-meta-label">Owner</div><div class="optC-card__back-meta-value">Sarah Mitchell</div></div>
+            <div><div class="optC-card__back-meta-label">Used By</div><div class="optC-card__back-meta-value">Content Team</div></div>
+          </div>
+          <a href="#" class="btn-grad optC-card__back-btn">Open <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+
+      <div class="optC-card">
+        <div class="optC-card__face optC-card__front">
+          <div>
+            <div class="optC-card__front-top">
+              <span class="platform-dot platform-dot--claude"></span>
+              <span class="optA-card__platform">Claude</span>
+            </div>
+            <div class="optC-card__front-name">SEO Brief Builder</div>
+          </div>
+          <div class="optC-card__front-bottom">
+            <span class="optC-card__front-category">SEO</span>
+            <span class="optC-card__front-hint">Hover for details</span>
+          </div>
+        </div>
+        <div class="optC-card__face optC-card__back">
+          <div class="optC-card__back-name">SEO Brief Builder</div>
+          <p class="optC-card__back-desc">Creates comprehensive SEO content briefs with keyword targets, structure recommendations, and competitor analysis</p>
+          <div class="optC-card__back-meta">
+            <div><div class="optC-card__back-meta-label">Owner</div><div class="optC-card__back-meta-value">James Cooper</div></div>
+            <div><div class="optC-card__back-meta-label">Used By</div><div class="optC-card__back-meta-value">SEO Team</div></div>
+          </div>
+          <a href="#" class="btn-grad optC-card__back-btn">Open <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+
+      <div class="optC-card">
+        <div class="optC-card__face optC-card__front">
+          <div>
+            <div class="optC-card__front-top">
+              <span class="platform-dot platform-dot--chatgpt"></span>
+              <span class="optA-card__platform">ChatGPT</span>
+            </div>
+            <div class="optC-card__front-name">Ad Copy Variant Generator</div>
+          </div>
+          <div class="optC-card__front-bottom">
+            <span class="optC-card__front-category">PPC</span>
+            <span class="optC-card__front-hint">Hover for details</span>
+          </div>
+        </div>
+        <div class="optC-card__face optC-card__back">
+          <div class="optC-card__back-name">Ad Copy Variant Generator</div>
+          <p class="optC-card__back-desc">Produces multiple RSA headline and description variants from a single brief, optimised for character limits</p>
+          <div class="optC-card__back-meta">
+            <div><div class="optC-card__back-meta-label">Owner</div><div class="optC-card__back-meta-value">Emma Williams</div></div>
+            <div><div class="optC-card__back-meta-label">Used By</div><div class="optC-card__back-meta-value">PPC Team</div></div>
+          </div>
+          <a href="#" class="btn-grad optC-card__back-btn">Open <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+
+      <div class="optC-card">
+        <div class="optC-card__face optC-card__front">
+          <div>
+            <div class="optC-card__front-top">
+              <span class="platform-dot platform-dot--midjourney"></span>
+              <span class="optA-card__platform">Midjourney</span>
+            </div>
+            <div class="optC-card__front-name">Campaign Image Creator</div>
+          </div>
+          <div class="optC-card__front-bottom">
+            <span class="optC-card__front-category">Design</span>
+            <span class="optC-card__front-hint">Hover for details</span>
+          </div>
+        </div>
+        <div class="optC-card__face optC-card__back">
+          <div class="optC-card__back-name">Campaign Image Creator</div>
+          <p class="optC-card__back-desc">Generates campaign imagery and social media visuals based on brand guidelines and campaign themes</p>
+          <div class="optC-card__back-meta">
+            <div><div class="optC-card__back-meta-label">Owner</div><div class="optC-card__back-meta-value">Alex Turner</div></div>
+            <div><div class="optC-card__back-meta-label">Used By</div><div class="optC-card__back-meta-value">Design Team</div></div>
+          </div>
+          <a href="#" class="btn-grad optC-card__back-btn">Open <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+
+      <div class="optC-card">
+        <div class="optC-card__face optC-card__front">
+          <div>
+            <div class="optC-card__front-top">
+              <span class="platform-dot platform-dot--claude"></span>
+              <span class="optA-card__platform">Claude</span>
+            </div>
+            <div class="optC-card__front-name">Analytics Report Summariser</div>
+          </div>
+          <div class="optC-card__front-bottom">
+            <span class="optC-card__front-category">Analytics</span>
+            <span class="optC-card__front-hint">Hover for details</span>
+          </div>
+        </div>
+        <div class="optC-card__face optC-card__back">
+          <div class="optC-card__back-name">Analytics Report Summariser</div>
+          <p class="optC-card__back-desc">Takes raw GA4 and ad platform data exports and generates plain-English performance summaries for client reports</p>
+          <div class="optC-card__back-meta">
+            <div><div class="optC-card__back-meta-label">Owner</div><div class="optC-card__back-meta-value">Priya Patel</div></div>
+            <div><div class="optC-card__back-meta-label">Used By</div><div class="optC-card__back-meta-value">Analytics Team</div></div>
+          </div>
+          <a href="#" class="btn-grad optC-card__back-btn">Open <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+
+      <div class="optC-card">
+        <div class="optC-card__face optC-card__front">
+          <div>
+            <div class="optC-card__front-top">
+              <span class="platform-dot platform-dot--chatgpt"></span>
+              <span class="optA-card__platform">ChatGPT</span>
+            </div>
+            <div class="optC-card__front-name">Client Onboarding Assistant</div>
+          </div>
+          <div class="optC-card__front-bottom">
+            <span class="optC-card__front-category">Operations</span>
+            <span class="optC-card__front-hint">Hover for details</span>
+          </div>
+        </div>
+        <div class="optC-card__face optC-card__back">
+          <div class="optC-card__back-name">Client Onboarding Assistant</div>
+          <p class="optC-card__back-desc">Guides account managers through the client onboarding checklist and auto-drafts welcome emails and kickoff agendas</p>
+          <div class="optC-card__back-meta">
+            <div><div class="optC-card__back-meta-label">Owner</div><div class="optC-card__back-meta-value">Tom Bradley</div></div>
+            <div><div class="optC-card__back-meta-label">Used By</div><div class="optC-card__back-meta-value">Account Management</div></div>
+          </div>
+          <a href="#" class="btn-grad optC-card__back-btn">Open <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+
+      <div class="optC-card">
+        <div class="optC-card__face optC-card__front">
+          <div>
+            <div class="optC-card__front-top">
+              <span class="platform-dot platform-dot--gemini"></span>
+              <span class="optA-card__platform">Gemini</span>
+            </div>
+            <div class="optC-card__front-name">Keyword Clustering Engine</div>
+          </div>
+          <div class="optC-card__front-bottom">
+            <span class="optC-card__front-category">SEO</span>
+            <span class="optC-card__front-hint">Hover for details</span>
+          </div>
+        </div>
+        <div class="optC-card__face optC-card__back">
+          <div class="optC-card__back-name">Keyword Clustering Engine</div>
+          <p class="optC-card__back-desc">Groups large keyword lists into topical clusters and maps them to content hub structures</p>
+          <div class="optC-card__back-meta">
+            <div><div class="optC-card__back-meta-label">Owner</div><div class="optC-card__back-meta-value">James Cooper</div></div>
+            <div><div class="optC-card__back-meta-label">Used By</div><div class="optC-card__back-meta-value">SEO Team</div></div>
+          </div>
+          <a href="#" class="btn-grad optC-card__back-btn">Open <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ════════════════════════════════════════════════════════════
+       OPTION D — Dense Icon Tiles with Floating Popover
+       ════════════════════════════════════════════════════════════ -->
+
+  <section class="mockup-section">
+    <div class="mockup-section__label">Option D</div>
+    <h2 class="mockup-section__title">Icon Tiles — Floating Popover</h2>
+    <p class="mockup-section__desc">Ultra-compact 5-column tiles with platform icon and name. Hover shows a floating popover above the tile with full details.</p>
+
+    <div class="optD-grid">
+
+      <div class="optD-card glass">
+        <div class="optD-card__icon optD-card__icon--chatgpt">G</div>
+        <div class="optD-card__name">SGM Content Generator</div>
+        <div class="optD-card__sub">Content</div>
+        <div class="optD-card__popover">
+          <div class="optD-pop__name">SGM Content Generator</div>
+          <div class="optD-pop__platform"><span class="platform-dot platform-dot--chatgpt"></span> ChatGPT &middot; Application</div>
+          <p class="optD-pop__desc">Generates blog posts, social copy, and ad text tailored to client brand voice and tone guidelines</p>
+          <div class="optD-pop__meta">
+            <div><div class="optD-pop__meta-label">Owner</div><div class="optD-pop__meta-value">Sarah Mitchell</div></div>
+            <div><div class="optD-pop__meta-label">Used By</div><div class="optD-pop__meta-value">Content Team</div></div>
+          </div>
+          <a href="#" class="btn-grad optD-pop__btn">Open Tool <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+
+      <div class="optD-card glass">
+        <div class="optD-card__icon optD-card__icon--claude">C</div>
+        <div class="optD-card__name">SEO Brief Builder</div>
+        <div class="optD-card__sub">SEO</div>
+        <div class="optD-card__popover">
+          <div class="optD-pop__name">SEO Brief Builder</div>
+          <div class="optD-pop__platform"><span class="platform-dot platform-dot--claude"></span> Claude &middot; Prompt</div>
+          <p class="optD-pop__desc">Creates comprehensive SEO content briefs with keyword targets, structure recommendations, and competitor analysis</p>
+          <div class="optD-pop__meta">
+            <div><div class="optD-pop__meta-label">Owner</div><div class="optD-pop__meta-value">James Cooper</div></div>
+            <div><div class="optD-pop__meta-label">Used By</div><div class="optD-pop__meta-value">SEO Team</div></div>
+          </div>
+          <a href="#" class="btn-grad optD-pop__btn">Open Tool <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+
+      <div class="optD-card glass">
+        <div class="optD-card__icon optD-card__icon--chatgpt">G</div>
+        <div class="optD-card__name">Ad Copy Variant Generator</div>
+        <div class="optD-card__sub">PPC</div>
+        <div class="optD-card__popover">
+          <div class="optD-pop__name">Ad Copy Variant Generator</div>
+          <div class="optD-pop__platform"><span class="platform-dot platform-dot--chatgpt"></span> ChatGPT &middot; Application</div>
+          <p class="optD-pop__desc">Produces multiple RSA headline and description variants from a single brief, optimised for character limits</p>
+          <div class="optD-pop__meta">
+            <div><div class="optD-pop__meta-label">Owner</div><div class="optD-pop__meta-value">Emma Williams</div></div>
+            <div><div class="optD-pop__meta-label">Used By</div><div class="optD-pop__meta-value">PPC Team</div></div>
+          </div>
+          <a href="#" class="btn-grad optD-pop__btn">Open Tool <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+
+      <div class="optD-card glass">
+        <div class="optD-card__icon optD-card__icon--midjourney">M</div>
+        <div class="optD-card__name">Campaign Image Creator</div>
+        <div class="optD-card__sub">Design</div>
+        <div class="optD-card__popover">
+          <div class="optD-pop__name">Campaign Image Creator</div>
+          <div class="optD-pop__platform"><span class="platform-dot platform-dot--midjourney"></span> Midjourney &middot; Application</div>
+          <p class="optD-pop__desc">Generates campaign imagery and social media visuals based on brand guidelines and campaign themes</p>
+          <div class="optD-pop__meta">
+            <div><div class="optD-pop__meta-label">Owner</div><div class="optD-pop__meta-value">Alex Turner</div></div>
+            <div><div class="optD-pop__meta-label">Used By</div><div class="optD-pop__meta-value">Design Team</div></div>
+          </div>
+          <a href="#" class="btn-grad optD-pop__btn">Open Tool <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+
+      <div class="optD-card glass">
+        <div class="optD-card__icon optD-card__icon--claude">C</div>
+        <div class="optD-card__name">Analytics Report Summariser</div>
+        <div class="optD-card__sub">Analytics</div>
+        <div class="optD-card__popover">
+          <div class="optD-pop__name">Analytics Report Summariser</div>
+          <div class="optD-pop__platform"><span class="platform-dot platform-dot--claude"></span> Claude &middot; Workflow</div>
+          <p class="optD-pop__desc">Takes raw GA4 and ad platform data exports and generates plain-English performance summaries for client reports</p>
+          <div class="optD-pop__meta">
+            <div><div class="optD-pop__meta-label">Owner</div><div class="optD-pop__meta-value">Priya Patel</div></div>
+            <div><div class="optD-pop__meta-label">Used By</div><div class="optD-pop__meta-value">Analytics Team</div></div>
+          </div>
+          <a href="#" class="btn-grad optD-pop__btn">Open Tool <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+
+      <div class="optD-card glass">
+        <div class="optD-card__icon optD-card__icon--chatgpt">G</div>
+        <div class="optD-card__name">Client Onboarding Assistant</div>
+        <div class="optD-card__sub">Operations</div>
+        <div class="optD-card__popover">
+          <div class="optD-pop__name">Client Onboarding Assistant</div>
+          <div class="optD-pop__platform"><span class="platform-dot platform-dot--chatgpt"></span> ChatGPT &middot; Integration</div>
+          <p class="optD-pop__desc">Guides account managers through the client onboarding checklist and auto-drafts welcome emails and kickoff agendas</p>
+          <div class="optD-pop__meta">
+            <div><div class="optD-pop__meta-label">Owner</div><div class="optD-pop__meta-value">Tom Bradley</div></div>
+            <div><div class="optD-pop__meta-label">Used By</div><div class="optD-pop__meta-value">Account Management</div></div>
+          </div>
+          <a href="#" class="btn-grad optD-pop__btn">Open Tool <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+
+      <div class="optD-card glass">
+        <div class="optD-card__icon optD-card__icon--gemini">G</div>
+        <div class="optD-card__name">Keyword Clustering Engine</div>
+        <div class="optD-card__sub">SEO</div>
+        <div class="optD-card__popover">
+          <div class="optD-pop__name">Keyword Clustering Engine</div>
+          <div class="optD-pop__platform"><span class="platform-dot platform-dot--gemini"></span> Gemini &middot; Workflow</div>
+          <p class="optD-pop__desc">Groups large keyword lists into topical clusters and maps them to content hub structures</p>
+          <div class="optD-pop__meta">
+            <div><div class="optD-pop__meta-label">Owner</div><div class="optD-pop__meta-value">James Cooper</div></div>
+            <div><div class="optD-pop__meta-label">Used By</div><div class="optD-pop__meta-value">SEO Team</div></div>
+          </div>
+          <a href="#" class="btn-grad optD-pop__btn">Open Tool <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div style="height: 80px;"></div>
+
+</body>
+</html>

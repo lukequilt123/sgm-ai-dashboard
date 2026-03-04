@@ -35,7 +35,7 @@ const ToolsPage = {
     platform: '',
     layer: '',
     category: '',
-    status: ''
+    type: ''
   },
 
   async init() {
@@ -57,7 +57,7 @@ const ToolsPage = {
       'filter-platform': { key: 'aiPlatform', label: 'All Platforms' },
       'filter-layer':    { key: 'aiLayer',    label: 'All Layers' },
       'filter-category': { key: 'category',   label: 'All Categories' },
-      'filter-status':   { key: 'status',     label: 'All Statuses' }
+      'filter-type':     { key: 'type',       label: 'All Types' }
     };
 
     for (const [selectId, config] of Object.entries(dimensions)) {
@@ -88,7 +88,7 @@ const ToolsPage = {
       { id: 'filter-platform', key: 'platform' },
       { id: 'filter-layer',    key: 'layer' },
       { id: 'filter-category', key: 'category' },
-      { id: 'filter-status',   key: 'status' }
+      { id: 'filter-type',     key: 'type' }
     ];
 
     dropdowns.forEach(({ id, key }) => {
@@ -108,7 +108,7 @@ const ToolsPage = {
       if (this.filterState.platform && tool.aiPlatform !== this.filterState.platform) return false;
       if (this.filterState.layer && tool.aiLayer !== this.filterState.layer) return false;
       if (this.filterState.category && tool.category !== this.filterState.category) return false;
-      if (this.filterState.status && tool.status !== this.filterState.status) return false;
+      if (this.filterState.type && tool.type !== this.filterState.type) return false;
       return true;
     });
 
@@ -134,44 +134,50 @@ const ToolsPage = {
   },
 
   buildCardHTML(tool, index) {
-    const statusClass = 'badge--' + tool.status.toLowerCase().replace(/\s+/g, '-');
     const hasLink = tool.link && tool.link.trim() !== '';
     const delay = Math.min(index * 0.05, 0.4);
 
+    // Platform icon class & letter
+    const platformKey = (tool.aiPlatform || '').toLowerCase().replace(/\s+/g, '');
+    const platformMap = {
+      chatgpt: { cls: 'chatgpt', letter: 'G' },
+      claude: { cls: 'claude', letter: 'C' },
+      gemini: { cls: 'gemini', letter: 'G' },
+      midjourney: { cls: 'midjourney', letter: 'M' }
+    };
+    const pInfo = platformMap[platformKey] || { cls: 'default', letter: (tool.aiPlatform || '?')[0].toUpperCase() };
+    const dotCls = 'platform-dot--' + pInfo.cls;
+
     return `
       <div class="tool-card glass-card fade-in" style="animation-delay: ${delay}s">
-        <div class="tool-card__header">
-          <span class="badge ${statusClass}">${this.escapeHTML(tool.status)}</span>
-          <span class="tool-card__platform-tag">${this.escapeHTML(tool.aiPlatform)}</span>
+        <div class="tool-card__icon tool-card__icon--${pInfo.cls}">${pInfo.letter}</div>
+        <div class="tool-card__name">${this.escapeHTML(tool.name)}</div>
+        <div class="tool-card__category">${this.escapeHTML(tool.category)}</div>
+        <div class="tool-card__popover">
+          <div class="tool-card__pop-name">${this.escapeHTML(tool.name)}</div>
+          <div class="tool-card__pop-platform">
+            <span class="platform-dot ${dotCls}"></span>
+            ${this.escapeHTML(tool.aiPlatform)} &middot; ${this.escapeHTML(tool.aiLayer)}
+          </div>
+          <p class="tool-card__pop-desc">${this.escapeHTML(tool.primaryUseCase)}</p>
+          <div class="tool-card__pop-meta">
+            <div>
+              <div class="tool-card__pop-meta-label">Owner</div>
+              <div class="tool-card__pop-meta-value">${this.escapeHTML(tool.owner)}</div>
+            </div>
+            <div>
+              <div class="tool-card__pop-meta-label">Used By</div>
+              <div class="tool-card__pop-meta-value">${this.escapeHTML(tool.beingUsedBy)}</div>
+            </div>
+          </div>
+          ${hasLink
+            ? `<a href="${this.escapeHTML(tool.link)}" target="_blank" rel="noopener" class="tool-card__pop-btn">
+                 Open Tool
+                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+               </a>`
+            : `<span class="tool-card__pop-btn tool-card__pop-btn--disabled">Coming Soon</span>`
+          }
         </div>
-        <h3 class="tool-card__name">${this.escapeHTML(tool.name)}</h3>
-        <p class="tool-card__description">${this.escapeHTML(tool.primaryUseCase)}</p>
-        <div class="tool-card__divider"></div>
-        <div class="tool-card__meta">
-          <div class="tool-card__meta-item">
-            <span class="tool-card__meta-label">AI Layer</span>
-            <span class="tool-card__meta-value">${this.escapeHTML(tool.aiLayer)}</span>
-          </div>
-          <div class="tool-card__meta-item">
-            <span class="tool-card__meta-label">Category</span>
-            <span class="tool-card__meta-value">${this.escapeHTML(tool.category)}</span>
-          </div>
-          <div class="tool-card__meta-item">
-            <span class="tool-card__meta-label">Owner</span>
-            <span class="tool-card__meta-value">${this.escapeHTML(tool.owner)}</span>
-          </div>
-          <div class="tool-card__meta-item">
-            <span class="tool-card__meta-label">Used By</span>
-            <span class="tool-card__meta-value">${this.escapeHTML(tool.beingUsedBy)}</span>
-          </div>
-        </div>
-        ${hasLink
-          ? `<a href="${this.escapeHTML(tool.link)}" target="_blank" rel="noopener" class="btn-gradient tool-card__link">
-               Open Tool
-               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"></path><path d="M7 7h10v10"></path></svg>
-             </a>`
-          : `<span class="btn-outline tool-card__link tool-card__link--disabled">Coming Soon</span>`
-        }
       </div>`;
   },
 
@@ -185,8 +191,8 @@ const ToolsPage = {
       activeFilters.push({ key: 'layer', value: this.filterState.layer });
     if (this.filterState.category)
       activeFilters.push({ key: 'category', value: this.filterState.category });
-    if (this.filterState.status)
-      activeFilters.push({ key: 'status', value: this.filterState.status });
+    if (this.filterState.type)
+      activeFilters.push({ key: 'type', value: this.filterState.type });
 
     if (activeFilters.length === 0) {
       container.innerHTML = '';
@@ -210,7 +216,7 @@ const ToolsPage = {
           platform: 'filter-platform',
           layer: 'filter-layer',
           category: 'filter-category',
-          status: 'filter-status'
+          type: 'filter-type'
         };
         document.getElementById(selectMap[key]).value = '';
         this.applyFilters();
@@ -226,12 +232,12 @@ const ToolsPage = {
   },
 
   clearFilters() {
-    this.filterState = { search: '', platform: '', layer: '', category: '', status: '' };
+    this.filterState = { search: '', platform: '', layer: '', category: '', type: '' };
     document.getElementById('tool-search').value = '';
     document.getElementById('filter-platform').value = '';
     document.getElementById('filter-layer').value = '';
     document.getElementById('filter-category').value = '';
-    document.getElementById('filter-status').value = '';
+    document.getElementById('filter-type').value = '';
     this.applyFilters();
   },
 
