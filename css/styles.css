@@ -695,9 +695,19 @@ select.filter-control option {
   box-shadow: var(--shadow-glow), 0 20px 40px rgba(0, 0, 0, 0.4);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transition: opacity 0.25s ease 0.12s, transform 0.25s ease 0.12s;
   z-index: 100;
   text-align: left;
+}
+
+/* Invisible bridge that fills the gap between card and popover */
+.tool-card__popover::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 18px; /* covers the 10px gap + arrow */
 }
 
 .tool-card__popover::after {
@@ -714,6 +724,7 @@ select.filter-control option {
   opacity: 1;
   pointer-events: auto;
   transform: translateX(-50%) translateY(0);
+  transition-delay: 0s;
 }
 
 .tool-card__pop-name {
