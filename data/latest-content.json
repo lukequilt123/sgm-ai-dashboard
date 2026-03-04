@@ -1,0 +1,29 @@
+{
+  "lastUpdated": "2026-03-04T10:00:00.000Z",
+  "items": [
+    {
+      "id": "content-001",
+      "heading": "Getting Started with AI at SGM",
+      "summary": "An introductory guide covering what AI tools are available, how to access them, and best practices for getting started. Includes tips on prompt writing and when to use which tool.",
+      "link": "https://docs.google.com/document/d/example-getting-started"
+    },
+    {
+      "id": "content-002",
+      "heading": "Prompt Engineering Best Practices",
+      "summary": "Learn the C.R.A.F.T. framework and other techniques for writing effective AI prompts. Covers common mistakes, advanced strategies, and real examples from the SGM team.",
+      "link": "https://docs.google.com/document/d/example-prompt-engineering"
+    },
+    {
+      "id": "content-003",
+      "heading": "AI Tools Update — March 2026",
+      "summary": "This month we added 3 new custom GPTs for the GRT and PPC teams. See what's new and how to start using them in your daily workflow.",
+      "link": ""
+    },
+    {
+      "id": "content-004",
+      "heading": "Claude Code Workshop Recording",
+      "summary": "Recording and slides from the live Claude Code workshop held on 28th February. Covers setup, basic commands, and building your first automated workflow.",
+      "link": "https://docs.google.com/document/d/example-workshop"
+    }
+  ]
+}

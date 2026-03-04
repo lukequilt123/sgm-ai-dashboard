@@ -1,0 +1,55 @@
+{
+  "lastUpdated": "2026-03-04T10:00:00.000Z",
+  "prompts": [
+    {
+      "id": "prompt-001",
+      "name": "SEO Meta Description Writer",
+      "mainModel": "Claude",
+      "category": "SEO",
+      "primaryUseCase": "Generates compelling meta descriptions optimised for click-through rate and character limits",
+      "builder": "luke@sleepinggiantmedia.co.uk",
+      "owner": "SEO",
+      "link": "https://docs.google.com/document/d/example-meta-desc"
+    },
+    {
+      "id": "prompt-002",
+      "name": "Client Report Summary",
+      "mainModel": "OpenAI",
+      "category": "Account Management",
+      "primaryUseCase": "Summarises monthly performance data into a client-facing narrative report",
+      "builder": "kat@sleepinggiantmedia.co.uk",
+      "owner": "Account Management",
+      "link": "https://docs.google.com/document/d/example-report"
+    },
+    {
+      "id": "prompt-003",
+      "name": "Social Media Caption Generator",
+      "mainModel": "Claude",
+      "category": "Social",
+      "primaryUseCase": "Creates platform-specific social media captions with hashtag suggestions",
+      "builder": "sam@sleepinggiantmedia.co.uk",
+      "owner": "Social",
+      "link": ""
+    },
+    {
+      "id": "prompt-004",
+      "name": "Technical SEO Audit Checklist",
+      "mainModel": "Gemini",
+      "category": "SEO",
+      "primaryUseCase": "Walks through a comprehensive technical SEO audit using structured prompts",
+      "builder": "james@sleepinggiantmedia.co.uk",
+      "owner": "SEO",
+      "link": "https://docs.google.com/document/d/example-tech-audit"
+    },
+    {
+      "id": "prompt-005",
+      "name": "PPC Keyword Expansion",
+      "mainModel": "OpenAI",
+      "category": "PPC",
+      "primaryUseCase": "Expands a seed keyword list into themed ad groups with match types",
+      "builder": "james@sleepinggiantmedia.co.uk",
+      "owner": "PPC",
+      "link": "https://docs.google.com/document/d/example-keyword"
+    }
+  ]
+}
