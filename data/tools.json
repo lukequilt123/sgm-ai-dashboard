@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-03-05T09:42:57.071Z",
+  "lastUpdated": "2026-03-18T09:13:11.140Z",
   "tools": [
     {
       "id": "tool-001",
@@ -207,6 +207,19 @@
       "builder": "team-paid@sleepinggiantmedia.co.uk",
       "owner": "",
       "link": "https://chatgpt.com/g/g-67c84e44fecc819181e7e1d5a6950bd3-paid-sales-obs-bot",
+      "dateAdded": ""
+    },
+    {
+      "id": "tool-024",
+      "name": "Colour Communicator",
+      "aiPlatform": "OpenAI",
+      "aiType": "Custom GPT / Claude / Gemini",
+      "category": "All",
+      "primaryUseCase": "Helps you communicate effectively with different colour profiles, rewriting your content in a style that will resonate with that colour",
+      "promptLink": "",
+      "builder": "",
+      "owner": "",
+      "link": "https://chatgpt.com/g/g-699c8353703881918aa7041819b6184a-colour-communicator",
       "dateAdded": ""
     }
   ]
