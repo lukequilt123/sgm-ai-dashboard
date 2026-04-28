@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-03-18T09:13:11.140Z",
+  "lastUpdated": "2026-04-28T15:21:31.702Z",
   "tools": [
     {
       "id": "tool-001",
@@ -220,6 +220,19 @@
       "builder": "",
       "owner": "",
       "link": "https://chatgpt.com/g/g-699c8353703881918aa7041819b6184a-colour-communicator",
+      "dateAdded": ""
+    },
+    {
+      "id": "tool-025",
+      "name": "1. Fact Find prep",
+      "aiPlatform": "N8N",
+      "aiType": "Workflow Automation (n8n / Zapier / Make)",
+      "category": "ComBaM",
+      "primaryUseCase": "Takes customer data and does some research to prepare the team for the fact find call",
+      "promptLink": "",
+      "builder": "",
+      "owner": "",
+      "link": "https://chatgpt.com/g/g-686220ba648881919ffeb314b18f7e6c-1-fact-find-prep",
       "dateAdded": ""
     }
   ]
