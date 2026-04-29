@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-28T15:21:31.702Z",
+  "lastUpdated": "2026-04-29T09:12:09.407Z",
   "tools": [
     {
       "id": "tool-001",
@@ -233,6 +233,136 @@
       "builder": "",
       "owner": "",
       "link": "https://chatgpt.com/g/g-686220ba648881919ffeb314b18f7e6c-1-fact-find-prep",
+      "dateAdded": ""
+    },
+    {
+      "id": "tool-026",
+      "name": "2. Move to pitch stage",
+      "aiPlatform": "N8N",
+      "aiType": "Workflow Automation (n8n / Zapier / Make)",
+      "category": "ComBaM",
+      "primaryUseCase": "Structures and refines fact-find information into a complete, pitch-ready brief, ensuring all required inputs are captured, clarified, and formatted for seamless handover into proposal development.",
+      "promptLink": "",
+      "builder": "",
+      "owner": "",
+      "link": "https://chatgpt.com/g/g-68e89e0264f88191a0ce146baeab777d-2-move-to-pitch-stage",
+      "dateAdded": ""
+    },
+    {
+      "id": "tool-027",
+      "name": "3. Onboarding Client",
+      "aiPlatform": "N8N",
+      "aiType": "Workflow Automation (n8n / Zapier / Make)",
+      "category": "ComBaM",
+      "primaryUseCase": "Structures and validates client onboarding data post-sale, generating clear scope of work, service plans, and delivery phases to support smooth handover from commercial to client services.",
+      "promptLink": "",
+      "builder": "",
+      "owner": "",
+      "link": "https://chatgpt.com/g/g-68f5f4ded23881919ef07eedb387db7f-3-onboarding-client",
+      "dateAdded": ""
+    },
+    {
+      "id": "tool-028",
+      "name": "Persona Pitch",
+      "aiPlatform": "N8N",
+      "aiType": "Workflow Automation (n8n / Zapier / Make)",
+      "category": "ComBaM",
+      "primaryUseCase": "Collects structured client inputs for buyer persona creation, validates completeness, confirms details with the user, and submits finalized data to an N8N webhook for automated persona generation workflows.",
+      "promptLink": "",
+      "builder": "",
+      "owner": "",
+      "link": "https://chatgpt.com/g/g-69403c9a95308191969b3330cac2d69c-persona-pitch/c/69f1aa69-1300-8328-8a51-ed67cbe88aa8",
+      "dateAdded": ""
+    },
+    {
+      "id": "tool-029",
+      "name": "Style My Content",
+      "aiPlatform": "N8N",
+      "aiType": "Workflow Automation (n8n / Zapier / Make)",
+      "category": "",
+      "primaryUseCase": "Takes disorganised, unformatted content and transforms it into a fully styled out document aligned with Sleeping Giant Media's branding.",
+      "promptLink": "",
+      "builder": "",
+      "owner": "",
+      "link": "https://n8n.sleepingaigiant.com/form/27db404b-5af4-4db3-84cb-446e8e46648e",
+      "dateAdded": ""
+    },
+    {
+      "id": "tool-030",
+      "name": "Persona Analysis",
+      "aiPlatform": "OpenAI",
+      "aiType": "Custom GPT / Claude / Gemini",
+      "category": "",
+      "primaryUseCase": "Analyse conversation transcripts to profile individuals’ communication style, values, and behaviour, helping sales teams understand personalities and tailor messaging for more effective, targeted client engagement.",
+      "promptLink": "",
+      "builder": "",
+      "owner": "",
+      "link": "https://chatgpt.com/g/g-seedjErip-persona-analysis/c/69f1ab2a-be58-832e-b8db-87de4e899827",
+      "dateAdded": ""
+    },
+    {
+      "id": "tool-031",
+      "name": "Jonny's Sales Assistant",
+      "aiPlatform": "OpenAI",
+      "aiType": "Custom GPT / Claude / Gemini",
+      "category": "ComBam",
+      "primaryUseCase": "Supports Jonny Connolly’s sales workflow by transforming raw notes into structured CRM entries, drafting client communications, and creating internal briefs aligned with Sleeping Giant Media’s processes and goals.",
+      "promptLink": "",
+      "builder": "jonny@sleepinggiantmedia.co.uk",
+      "owner": "Jonny",
+      "link": "https://chatgpt.com/g/g-69247772be448191ae8fd8fb1c41ebde-jonnys-sales-assistant/c/69f1a715-3648-8333-98c6-7ffbbd2e9288",
+      "dateAdded": ""
+    },
+    {
+      "id": "tool-032",
+      "name": "Contract Law Advisor",
+      "aiPlatform": "OpenAI",
+      "aiType": "Custom GPT / Claude / Gemini",
+      "category": "",
+      "primaryUseCase": "Provides UK-law contract drafting, review, and risk analysis for Sleeping Giant Media, ensuring agreements align with internal templates, commercial terms, and best practice.",
+      "promptLink": "",
+      "builder": "luke@sleepinggiantmedia.co.uk",
+      "owner": "Luke",
+      "link": "https://chatgpt.com/g/g-WDz05B5Fb-contract-law-advisor/c/69f1a89d-e5d0-8330-aefe-86927a46107e",
+      "dateAdded": ""
+    },
+    {
+      "id": "tool-033",
+      "name": "Chachi Petey: Outreach Assistant",
+      "aiPlatform": "OpenAI",
+      "aiType": "Custom GPT / Claude / Gemini",
+      "category": "ComBam",
+      "primaryUseCase": "Transforms messy sales notes into structured CRM summaries, creates internal briefs, and drafts outreach—supporting Sleeping Giant Media’s sales, prospecting, and relationship-building workflows with clear, actionable content.",
+      "promptLink": "",
+      "builder": "fiona@sleepinggiantmedia.co.uk",
+      "owner": "Fiona",
+      "link": "https://chatgpt.com/g/g-68764870959481919d13251c49d9aa44-chachi-petey-outreach-assistant/c/69f1ab63-2878-832b-b40b-96e99a3b4752",
+      "dateAdded": ""
+    },
+    {
+      "id": "tool-034",
+      "name": "Cold Outreach Assistant",
+      "aiPlatform": "OpenAI",
+      "aiType": "Custom GPT / Claude / Gemini",
+      "category": "ComBam",
+      "primaryUseCase": "Generate concise, high-converting cold outreach emails and call scripts targeting digital marketing pain points, helping businesses improve lead generation, ROI, and campaign performance with clear, compelling calls to action.",
+      "promptLink": "",
+      "builder": "fiona@sleepinggiantmedia.co.uk",
+      "owner": "Fiona",
+      "link": "https://chatgpt.com/g/g-bmesWa7yN-cold-outreach-assistant/c/69f1aba7-2704-8326-aa46-20522ce44e26",
+      "dateAdded": ""
+    },
+    {
+      "id": "tool-035",
+      "name": "Single GEO Audit",
+      "aiPlatform": "N8N",
+      "aiType": "Workflow Automation (n8n / Zapier / Make)",
+      "category": "ComBam",
+      "primaryUseCase": "Carries out a single GEO audit on a given website URL will currently produce a SGM branded PDF",
+      "promptLink": "",
+      "builder": "luke@sleepinggiantmedia.co.uk",
+      "owner": "Nikki",
+      "link": "https://n8n.sleepingaigiant.com/form/f9241b3b-5a62-4eaf-95df-1e0b1783b819",
       "dateAdded": ""
     }
   ]
