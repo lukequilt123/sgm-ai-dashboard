@@ -61,6 +61,28 @@ function detailField(tool, ...keys) {
   return '';
 }
 
+// Rewrite Google Drive share URLs to a directly-embeddable form.
+// drive.google.com/file/d/<id>/view  ─┐
+// drive.google.com/open?id=<id>       ├─►  lh3.googleusercontent.com/d/<id>=w2000
+// drive.google.com/uc?id=<id>&...     ─┘
+// Other URLs (Imgur, raw GitHub, etc.) are returned unchanged.
+function normalizeImageUrl(url) {
+  if (!url) return '';
+  const trimmed = url.trim();
+  let id = null;
+
+  const fileD = trimmed.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (fileD) id = fileD[1];
+
+  if (!id && /(?:drive|docs)\.google\.com/.test(trimmed)) {
+    const idParam = trimmed.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    if (idParam) id = idParam[1];
+  }
+
+  if (id) return `https://lh3.googleusercontent.com/d/${id}=w2000`;
+  return trimmed;
+}
+
 /* ── Tools Page Module ───────────────────────────────────── */
 
 const ToolsPage = {
@@ -831,7 +853,7 @@ const ToolDetailPage = {
     const screenshotSection = document.getElementById('td-screenshot-section');
     if (hasScreenshot) {
       const img = document.getElementById('td-screenshot');
-      img.src = screenshot;
+      img.src = normalizeImageUrl(screenshot);
       img.alt = `${tool.name} screenshot`;
       img.loading = 'lazy';
       screenshotSection.classList.remove('hidden');
