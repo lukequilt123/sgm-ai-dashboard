@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-03-04T11:45:08.110Z",
+  "lastUpdated": "2026-05-10T09:11:24.596Z",
   "items": [
     {
       "id": "content-001",
@@ -12,6 +12,18 @@
       "heading": "AI Catch Up with Luke recording 05/02/2026",
       "summary": "A new AI tool called \"Claudebot\" (also known as \"Maltbot\" or \"Open Claw\") was introduced.\nThis is a self-hosted AI assistant designed to live on a server and integrate with apps such as Gmail, Telegram, WhatsApp, and GitHub.\nSecurity Risks of Experimental AI\nSignificant security risks are associated with this new tool.",
       "link": "https://drive.google.com/file/d/1Z44csCJakLoVXG_Esclm6UQjroZYQtFx/view"
+    },
+    {
+      "id": "content-003",
+      "heading": "AI Catch Up with Luke recording 05/03/2026",
+      "summary": "The company is focusing on instilling an AI-first, human-centric mentality to disrupt business processes, aiming to automate 30 to 50% of tasks by challenging existing workflows and leveraging AI as a co-pilot, not a replacement for critical thinking. Kathleen Douglas (SGM) created a spreadsheet to track internal GPTs and prompts, while Luke Quilter demonstrated a live dashboard built with Claude Code to improve tool access, highlighting the use of rapid development for tools like the client portal. The main challenges for integrating these new tools and workflows are related to scalability, administration control, and establishing a testing framework, rather than the initial development speed, with the goal of quickly achieving user acceptance across the organization.",
+      "link": "https://drive.google.com/file/d/1YyN-U8t7V01m_dIUCRkqfRwCv06gv_hn/view"
+    },
+    {
+      "id": "content-004",
+      "heading": "AI Catch Up with Luke recording 19/03/2026",
+      "summary": "The catch up explores the business applications of AI tools, specifically Claude Code, highlighting its ability to interact directly with computer files and browsers to automate tasks like document creation and website rebuilding. A central theme is that AI enhances rather than replaces human roles, with true value residing in human expertise—referred to as \"SGM-ifying\"—to ensure data accuracy and professional standards. Practical strategies for implementation include building custom \"skills\" as intellectual property, using multiple AI models to cross-check for errors or \"hallucinations,\" and maintaining data security through paid enterprise accounts. Ultimately, the speaker views these advancements as opportunities to lower development barriers, accelerate innovation, and productize services while emphasizing the necessity of human critical thinking and oversight.",
+      "link": "https://drive.google.com/file/d/106jriGnOV9kBcKjHw3J_WYF7R3e0PswO/view"
     }
   ]
 }
