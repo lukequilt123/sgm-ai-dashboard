@@ -21,12 +21,21 @@ export async function onRequestPost({ request, env }) {
   const builderEmail = typeof body?.builderEmail === 'string' ? body.builderEmail.trim() : '';
   const rating = body?.rating;
   const feedback = typeof body?.feedback === 'string' ? body.feedback.trim() : '';
+  const submitterEmailRaw = typeof body?.submitterEmail === 'string' ? body.submitterEmail.trim() : '';
 
   if (!toolId || !toolName) return json({ error: 'Missing tool reference' }, 400);
   if (rating !== 'up' && rating !== 'down') return json({ error: 'Invalid rating' }, 400);
   if (feedback.length > 2000) return json({ error: 'Feedback too long' }, 400);
+  if (submitterEmailRaw.length > 200) return json({ error: 'Email too long' }, 400);
+  if (submitterEmailRaw && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(submitterEmailRaw)) {
+    return json({ error: 'Invalid email' }, 400);
+  }
 
-  const submittedBy = request.headers.get('Cf-Access-Authenticated-User-Email') || '';
+  // Submitted-by precedence: user-typed email wins (deliberate signal),
+  // falling back to the CF-Access-attested email when nothing was typed.
+  // Both anonymous → empty string; downstream sheet column simply blank.
+  const cfAccessEmail = request.headers.get('Cf-Access-Authenticated-User-Email') || '';
+  const submittedBy = submitterEmailRaw || cfAccessEmail;
 
   const payload = {
     timestamp: new Date().toISOString(),

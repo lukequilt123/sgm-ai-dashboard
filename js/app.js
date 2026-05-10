@@ -67,6 +67,14 @@ const FeedbackModal = {
           </button>
         </div>
 
+        <div class="feedback-modal__field">
+          <label class="feedback-modal__label" for="fb-email">
+            Your email <span class="feedback-modal__optional">— optional</span>
+          </label>
+          <input type="email" class="feedback-modal__input" id="fb-email" maxlength="200" autocomplete="email" placeholder="you@sleepinggiantmedia.co.uk">
+          <p class="feedback-modal__hint">Helps the builder follow up with any clarifying questions. Leave blank to stay anonymous.</p>
+        </div>
+
         <textarea class="feedback-modal__textarea" id="fb-text" placeholder="Optional — what worked, what didn't, or how it could be better." maxlength="2000"></textarea>
         <div class="feedback-modal__counter"><span id="fb-count">0</span> / 2000</div>
 
@@ -117,6 +125,7 @@ const FeedbackModal = {
     this._root.querySelectorAll('.feedback-modal__thumb').forEach(b =>
       b.classList.remove('feedback-modal__thumb--active'));
     document.getElementById('fb-text').value = '';
+    document.getElementById('fb-email').value = '';
     document.getElementById('fb-count').textContent = '0';
     const err = document.getElementById('fb-error');
     err.classList.add('hidden');
@@ -153,6 +162,14 @@ const FeedbackModal = {
 
     const rating = ratingBtn.getAttribute('data-rating');
     const feedback = document.getElementById('fb-text').value.trim();
+    const submitterEmail = document.getElementById('fb-email').value.trim();
+
+    // Lightweight client-side email format check (real validation is server-side)
+    if (submitterEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(submitterEmail)) {
+      err.textContent = "That doesn't look like a valid email — fix it or leave it blank.";
+      err.classList.remove('hidden');
+      return;
+    }
 
     const submitBtn = document.getElementById('fb-submit');
     submitBtn.disabled = true;
@@ -167,7 +184,8 @@ const FeedbackModal = {
           toolName: tool.name,
           builderEmail: tool.builder || '',
           rating,
-          feedback
+          feedback,
+          submitterEmail
         })
       });
 

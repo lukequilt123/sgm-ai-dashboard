@@ -1602,6 +1602,58 @@ body.modal-open {
   color: inherit;
 }
 
+.feedback-modal__field {
+  margin-bottom: 16px;
+}
+
+.feedback-modal__label {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.feedback-modal__optional {
+  color: var(--text-muted);
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+  font-size: 11px;
+}
+
+.feedback-modal__input {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 14px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.feedback-modal__input:focus {
+  outline: none;
+  border-color: var(--brand-purple);
+  box-shadow: 0 0 0 3px rgba(127, 95, 206, 0.15);
+}
+
+.feedback-modal__input::placeholder {
+  color: var(--text-muted);
+}
+
+.feedback-modal__hint {
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
 .feedback-modal__textarea {
   width: 100%;
   min-height: 110px;
