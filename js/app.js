@@ -15,11 +15,12 @@ const DataService = {
 /* ── Nav Utility ─────────────────────────────────────────── */
 
 function setActiveNav() {
-  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  // Normalize: strip .html so we match regardless of CF Pages canonicalization
+  const norm = (p) => (p || '').split('/').pop().replace(/\.html$/, '');
+  let current = norm(window.location.pathname);
+  if (current === '' || current === 'index') current = 'home';
   document.querySelectorAll('.portal-nav__link').forEach(link => {
-    const linkPage = link.getAttribute('href');
-    if (linkPage === currentPage ||
-        (currentPage === 'index.html' && linkPage === 'home.html')) {
+    if (norm(link.getAttribute('href')) === current) {
       link.classList.add('portal-nav__link--active');
     }
   });
@@ -814,17 +815,21 @@ const ToolDetailPage = {
 document.addEventListener('DOMContentLoaded', () => {
   setActiveNav();
 
-  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  // Cloudflare Pages canonicalizes /tools.html -> /tools, so accept both forms.
+  // Strip any trailing .html and any trailing slash before matching.
+  let currentPage = window.location.pathname.split('/').pop() || 'index';
+  currentPage = currentPage.replace(/\.html$/, '');
+  if (currentPage === '' || currentPage === 'index') currentPage = 'home';
 
-  if (currentPage === 'tools.html') {
+  if (currentPage === 'tools') {
     ToolsPage.init();
-  } else if (currentPage === 'prompts.html') {
+  } else if (currentPage === 'prompts') {
     PromptsPage.init();
-  } else if (currentPage === 'claude-code.html') {
+  } else if (currentPage === 'claude-code') {
     ClaudePage.init();
-  } else if (currentPage === 'home.html') {
+  } else if (currentPage === 'home') {
     LatestContentModule.init();
-  } else if (currentPage === 'tool.html') {
+  } else if (currentPage === 'tool') {
     ToolDetailPage.init();
   }
 });
