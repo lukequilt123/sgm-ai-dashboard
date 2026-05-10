@@ -201,7 +201,7 @@ const ToolsPage = {
 
     // Popover buttons — keep direct-link behaviour, stop card-level navigation
     let buttonsHTML = '';
-    if (hasPromptLink || hasToolLink) {
+    if (hasPromptLink || hasToolLink || hasDetail) {
       buttonsHTML = '<div class="tool-card__pop-buttons">';
       if (hasPromptLink) {
         buttonsHTML += `<a href="${escapeHTML(tool.promptLink)}" target="_blank" rel="noopener" class="tool-card__pop-btn tool-card__pop-btn--outline" onclick="event.stopPropagation()">
@@ -213,6 +213,12 @@ const ToolsPage = {
         buttonsHTML += `<a href="${escapeHTML(tool.link)}" target="_blank" rel="noopener" class="tool-card__pop-btn" onclick="event.stopPropagation()">
           Use Tool
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+        </a>`;
+      }
+      if (hasDetail) {
+        buttonsHTML += `<a href="tool.html?id=${encodeURIComponent(tool.id)}" class="tool-card__pop-btn tool-card__pop-btn--outline" onclick="event.stopPropagation()">
+          Details
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
         </a>`;
       }
       buttonsHTML += '</div>';
