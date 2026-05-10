@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-10T09:46:50.056Z",
+  "lastUpdated": "2026-05-10T09:57:12.305Z",
   "tools": [
     {
       "id": "tool-001",
@@ -16,7 +16,7 @@
       "description": "A GPT that uses a simple baked-in prompt in the background to walk the user through the various stages and functions of a prompt",
       "howItWorks": "This is a simple custom GPT that has no external calls",
       "techUsed": "ChatGPT only. There are no external calls",
-      "screenGrab": ""
+      "screenGrab": "CellImage"
     },
     {
       "id": "tool-002",
