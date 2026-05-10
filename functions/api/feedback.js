@@ -18,6 +18,7 @@ export async function onRequestPost({ request, env }) {
 
   const toolId = typeof body?.toolId === 'string' ? body.toolId.trim() : '';
   const toolName = typeof body?.toolName === 'string' ? body.toolName.trim() : '';
+  const toolLinkRaw = typeof body?.toolLink === 'string' ? body.toolLink.trim() : '';
   const builderEmail = typeof body?.builderEmail === 'string' ? body.builderEmail.trim() : '';
   const rating = body?.rating;
   const feedback = typeof body?.feedback === 'string' ? body.feedback.trim() : '';
@@ -30,6 +31,10 @@ export async function onRequestPost({ request, env }) {
   if (submitterEmailRaw && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(submitterEmailRaw)) {
     return json({ error: 'Invalid email' }, 400);
   }
+  if (toolLinkRaw.length > 1000) return json({ error: 'Tool link too long' }, 400);
+
+  // Only forward http(s) links — quietly drop anything else (mailto:, javascript:, etc.)
+  const toolLink = /^https?:\/\//i.test(toolLinkRaw) ? toolLinkRaw : '';
 
   // Submitted-by precedence: user-typed email wins (deliberate signal),
   // falling back to the CF-Access-attested email when nothing was typed.
@@ -41,6 +46,7 @@ export async function onRequestPost({ request, env }) {
     timestamp: new Date().toISOString(),
     toolId,
     toolName,
+    toolLink,
     builderEmail,
     submittedBy,
     rating,

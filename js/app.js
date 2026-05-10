@@ -182,6 +182,7 @@ const FeedbackModal = {
         body: JSON.stringify({
           toolId: tool.id,
           toolName: tool.name,
+          toolLink: tool.link || '',
           builderEmail: tool.builder || '',
           rating,
           feedback,
