@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-10T09:11:11.183Z",
+  "lastUpdated": "2026-05-10T09:46:50.056Z",
   "tools": [
     {
       "id": "tool-001",
@@ -12,7 +12,11 @@
       "builder": "luke@sleepinggiantmedia.co.uk",
       "owner": "Luke",
       "link": "https://chatgpt.com/g/g-67efa84ff37481919a08b386ce235b68-craft-the-perfect-prompt",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "A GPT that uses a simple baked-in prompt in the background to walk the user through the various stages and functions of a prompt",
+      "howItWorks": "This is a simple custom GPT that has no external calls",
+      "techUsed": "ChatGPT only. There are no external calls",
+      "screenGrab": ""
     },
     {
       "id": "tool-002",
@@ -25,7 +29,11 @@
       "builder": "luke@sleepinggiantmedia.co.uk",
       "owner": "",
       "link": "https://chatgpt.com/g/g-e5o5uadqV-newton-general-sgm-helper",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     },
     {
       "id": "tool-003",
@@ -38,7 +46,11 @@
       "builder": "luke@sleepinggiantmedia.co.uk",
       "owner": "Luke",
       "link": "https://chatgpt.com/g/g-JlsM4VjuZ-content-pyramid-production-helper",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     },
     {
       "id": "tool-004",
@@ -51,7 +63,11 @@
       "builder": "",
       "owner": "",
       "link": "https://chatgpt.com/g/g-67b3264176d88191842ca3e544208363-sgm-handbook",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     },
     {
       "id": "tool-005",
@@ -64,7 +80,11 @@
       "builder": "Kat@sleepinggiantmedia.co.uk",
       "owner": "Kat",
       "link": "https://chatgpt.com/g/g-695cfbb656bc8191956404c674ce32d1-grt-vision-builder-gpt",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     },
     {
       "id": "tool-006",
@@ -77,7 +97,11 @@
       "builder": "Kat@sleepinggiantmedia.co.uk",
       "owner": "Kat",
       "link": "",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     },
     {
       "id": "tool-007",
@@ -90,7 +114,11 @@
       "builder": "luke@sleepinggiantmedia.co.uk",
       "owner": "",
       "link": "https://n8n.sleepingaigiant.com/form/93931535-b86e-4635-a7d6-1ad31ca0fe92",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     },
     {
       "id": "tool-009",
@@ -103,7 +131,11 @@
       "builder": "luke@sleepinggiantmedia.co.uk",
       "owner": "",
       "link": "https://chatgpt.com/g/g-699c8353703881918aa7041819b6184a-colour-communicator",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     },
     {
       "id": "tool-010",
@@ -116,7 +148,11 @@
       "builder": "kat@sleepinggiantmedia.co.uk",
       "owner": "Kirsty?",
       "link": "https://chatgpt.com/g/g-69170de1dcec819199a561d43d9fa7e9-sgm-b-corp-advisor",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     },
     {
       "id": "tool-011",
@@ -129,7 +165,11 @@
       "builder": "kirsty@sleepinggiantmedia.co.uk",
       "owner": "Kirsty",
       "link": "https://chatgpt.com/g/g-JRR4Ue8Fh-client-scoring-matrix",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     },
     {
       "id": "tool-012",
@@ -142,7 +182,11 @@
       "builder": "kat@sleepinggiantmedia.co.uk",
       "owner": "Kat",
       "link": "https://chatgpt.com/g/g-t0yefEaQM-fi2r-from-ideas-to-results-prompt",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     },
     {
       "id": "tool-016",
@@ -155,7 +199,11 @@
       "builder": "luke@sleepinggiantmedia.co.uk",
       "owner": "",
       "link": "https://chatgpt.com/g/g-SeKRUiB3y-client-meeting-note-follow-up",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     },
     {
       "id": "tool-017",
@@ -168,7 +216,11 @@
       "builder": "",
       "owner": "",
       "link": "",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     },
     {
       "id": "tool-019",
@@ -181,7 +233,11 @@
       "builder": "liz@sleepinggiantmedia.co.uk",
       "owner": "Liz",
       "link": "https://chatgpt.com/g/g-2eMcFMPBl-ideation-checker",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     },
     {
       "id": "tool-020",
@@ -194,7 +250,11 @@
       "builder": "",
       "owner": "",
       "link": "https://chatgpt.com/g/g-1PNFCpTls-sheet-helper",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     },
     {
       "id": "tool-021",
@@ -207,7 +267,11 @@
       "builder": "team-paid@sleepinggiantmedia.co.uk",
       "owner": "",
       "link": "https://chatgpt.com/g/g-67c84e44fecc819181e7e1d5a6950bd3-paid-sales-obs-bot",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     },
     {
       "id": "tool-024",
@@ -220,7 +284,11 @@
       "builder": "",
       "owner": "",
       "link": "https://chatgpt.com/g/g-699c8353703881918aa7041819b6184a-colour-communicator",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     },
     {
       "id": "tool-025",
@@ -233,7 +301,11 @@
       "builder": "",
       "owner": "",
       "link": "https://chatgpt.com/g/g-686220ba648881919ffeb314b18f7e6c-1-fact-find-prep",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     },
     {
       "id": "tool-026",
@@ -246,7 +318,11 @@
       "builder": "",
       "owner": "",
       "link": "https://chatgpt.com/g/g-68e89e0264f88191a0ce146baeab777d-2-move-to-pitch-stage",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     },
     {
       "id": "tool-027",
@@ -259,7 +335,11 @@
       "builder": "",
       "owner": "",
       "link": "https://chatgpt.com/g/g-68f5f4ded23881919ef07eedb387db7f-3-onboarding-client",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     },
     {
       "id": "tool-028",
@@ -272,7 +352,11 @@
       "builder": "",
       "owner": "",
       "link": "https://chatgpt.com/g/g-69403c9a95308191969b3330cac2d69c-persona-pitch/c/69f1aa69-1300-8328-8a51-ed67cbe88aa8",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     },
     {
       "id": "tool-029",
@@ -285,7 +369,11 @@
       "builder": "",
       "owner": "",
       "link": "https://n8n.sleepingaigiant.com/form/27db404b-5af4-4db3-84cb-446e8e46648e",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     },
     {
       "id": "tool-030",
@@ -298,7 +386,11 @@
       "builder": "",
       "owner": "",
       "link": "https://chatgpt.com/g/g-seedjErip-persona-analysis/c/69f1ab2a-be58-832e-b8db-87de4e899827",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     },
     {
       "id": "tool-031",
@@ -311,7 +403,11 @@
       "builder": "jonny@sleepinggiantmedia.co.uk",
       "owner": "Jonny",
       "link": "https://chatgpt.com/g/g-69247772be448191ae8fd8fb1c41ebde-jonnys-sales-assistant/c/69f1a715-3648-8333-98c6-7ffbbd2e9288",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     },
     {
       "id": "tool-032",
@@ -324,7 +420,11 @@
       "builder": "luke@sleepinggiantmedia.co.uk",
       "owner": "Luke",
       "link": "https://chatgpt.com/g/g-WDz05B5Fb-contract-law-advisor/c/69f1a89d-e5d0-8330-aefe-86927a46107e",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     },
     {
       "id": "tool-033",
@@ -337,7 +437,11 @@
       "builder": "fiona@sleepinggiantmedia.co.uk",
       "owner": "Fiona",
       "link": "https://chatgpt.com/g/g-68764870959481919d13251c49d9aa44-chachi-petey-outreach-assistant/c/69f1ab63-2878-832b-b40b-96e99a3b4752",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     },
     {
       "id": "tool-034",
@@ -350,7 +454,11 @@
       "builder": "fiona@sleepinggiantmedia.co.uk",
       "owner": "Fiona",
       "link": "https://chatgpt.com/g/g-bmesWa7yN-cold-outreach-assistant/c/69f1aba7-2704-8326-aa46-20522ce44e26",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     },
     {
       "id": "tool-035",
@@ -363,7 +471,11 @@
       "builder": "luke@sleepinggiantmedia.co.uk",
       "owner": "Nikki",
       "link": "https://n8n.sleepingaigiant.com/form/f9241b3b-5a62-4eaf-95df-1e0b1783b819",
-      "dateAdded": ""
+      "dateAdded": "",
+      "description": "",
+      "howItWorks": "",
+      "techUsed": "",
+      "screenGrab": ""
     }
   ]
 }
