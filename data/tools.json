@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-10T10:11:09.718Z",
+  "lastUpdated": "2026-05-10T10:11:50.396Z",
   "tools": [
     {
       "id": "tool-001",
@@ -15,7 +15,7 @@
       "dateAdded": "",
       "description": "A GPT that uses a simple baked-in prompt in the background to walk the user through the various stages and functions of a prompt",
       "howItWorks": "This is a simple custom GPT that has no external calls",
-      "techUsed": "ChatGPT only. There are no external calls",
+      "techUsed": "NEW",
       "screenGrab": "https://drive.google.com/file/d/1xnu5JwdyTNo3eUkpr4hcpYufByfnmCEI/view?usp=drive_link"
     },
     {
