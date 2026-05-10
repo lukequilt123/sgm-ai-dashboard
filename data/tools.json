@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-10T09:57:12.305Z",
+  "lastUpdated": "2026-05-10T10:01:09.916Z",
   "tools": [
     {
       "id": "tool-001",
@@ -30,9 +30,9 @@
       "owner": "",
       "link": "https://chatgpt.com/g/g-e5o5uadqV-newton-general-sgm-helper",
       "dateAdded": "",
-      "description": "",
-      "howItWorks": "",
-      "techUsed": "",
+      "description": "This GPT serves as a comprehensive knowledge repository covering a wide range of SGM-related topics, providing users with the exact same information and resources as the version shared with clients. It is designed to offer detailed insights and support across all relevant subject areas within the SGM framework to ensure consistency and depth.",
+      "howItWorks": "It is filled with company wide inforation from most departments and allows the user to ask questions against it. \n\nIts limitations are that it could be out of date as it will require the owner to mannually upload new knowledge files.",
+      "techUsed": "ChatGPT only. There are no external calls",
       "screenGrab": ""
     },
     {
