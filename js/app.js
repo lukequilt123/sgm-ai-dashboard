@@ -35,6 +35,181 @@ function escapeHTML(str) {
   return div.innerHTML;
 }
 
+/* ── Feedback Modal ──────────────────────────────────────── */
+
+const FeedbackModal = {
+  _root: null,
+  _tool: null,
+
+  ensureMounted() {
+    if (this._root) return;
+    const root = document.createElement('div');
+    root.className = 'feedback-modal hidden';
+    root.setAttribute('role', 'dialog');
+    root.setAttribute('aria-modal', 'true');
+    root.setAttribute('aria-labelledby', 'fb-title');
+    root.innerHTML = `
+      <div class="feedback-modal__backdrop" data-close="1"></div>
+      <div class="feedback-modal__card glass-card">
+        <button type="button" class="feedback-modal__close" data-close="1" aria-label="Close">&times;</button>
+        <div class="feedback-modal__eyebrow">Leave feedback</div>
+        <h2 class="feedback-modal__title" id="fb-title"></h2>
+        <p class="feedback-modal__sub">How did this tool work for you?</p>
+
+        <div class="feedback-modal__rating" role="radiogroup" aria-label="Rating">
+          <button type="button" class="feedback-modal__thumb" data-rating="up" aria-label="Thumbs up">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M7 22V11"/><path d="M5 11h12.6a2.4 2.4 0 0 1 2.4 2.4l-1.5 6A2.4 2.4 0 0 1 16.1 21H7"/><path d="M11 11V5a3 3 0 0 1 3-3l3 7"/></svg>
+            <span>Helpful</span>
+          </button>
+          <button type="button" class="feedback-modal__thumb" data-rating="down" aria-label="Thumbs down">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M17 2v11"/><path d="M19 13H6.4A2.4 2.4 0 0 1 4 10.6L5.5 4.6A2.4 2.4 0 0 1 7.9 3H17"/><path d="M13 13v6a3 3 0 0 1-3 3l-3-7"/></svg>
+            <span>Needs work</span>
+          </button>
+        </div>
+
+        <textarea class="feedback-modal__textarea" id="fb-text" placeholder="Optional — what worked, what didn't, or how it could be better." maxlength="2000"></textarea>
+        <div class="feedback-modal__counter"><span id="fb-count">0</span> / 2000</div>
+
+        <p class="feedback-modal__error hidden" id="fb-error"></p>
+
+        <div class="feedback-modal__actions">
+          <button type="button" class="btn-outline" data-close="1">Cancel</button>
+          <button type="button" class="btn-gradient" id="fb-submit">Send feedback</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(root);
+    this._root = root;
+
+    // Close on backdrop / × / Cancel
+    root.addEventListener('click', (e) => {
+      if (e.target.closest('[data-close]')) this.close();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !root.classList.contains('hidden')) this.close();
+    });
+
+    // Rating selection
+    root.querySelectorAll('.feedback-modal__thumb').forEach(btn => {
+      btn.addEventListener('click', () => {
+        root.querySelectorAll('.feedback-modal__thumb').forEach(b =>
+          b.classList.toggle('feedback-modal__thumb--active', b === btn)
+        );
+        const err = document.getElementById('fb-error');
+        if (err) err.classList.add('hidden');
+      });
+    });
+
+    // Char counter
+    const textarea = document.getElementById('fb-text');
+    const counter = document.getElementById('fb-count');
+    textarea.addEventListener('input', () => { counter.textContent = textarea.value.length; });
+
+    // Submit
+    document.getElementById('fb-submit').addEventListener('click', () => this.submit());
+  },
+
+  open(tool) {
+    this.ensureMounted();
+    this._tool = tool;
+    document.getElementById('fb-title').textContent = tool.name || 'this tool';
+    // Reset state
+    this._root.querySelectorAll('.feedback-modal__thumb').forEach(b =>
+      b.classList.remove('feedback-modal__thumb--active'));
+    document.getElementById('fb-text').value = '';
+    document.getElementById('fb-count').textContent = '0';
+    const err = document.getElementById('fb-error');
+    err.classList.add('hidden');
+    err.textContent = '';
+    document.getElementById('fb-submit').disabled = false;
+    document.getElementById('fb-submit').textContent = 'Send feedback';
+
+    this._root.classList.remove('hidden');
+    document.body.classList.add('modal-open');
+  },
+
+  close() {
+    if (!this._root) return;
+    this._root.classList.add('hidden');
+    document.body.classList.remove('modal-open');
+    this._tool = null;
+  },
+
+  async submit() {
+    const root = this._root;
+    const tool = this._tool;
+    if (!tool) return;
+
+    const ratingBtn = root.querySelector('.feedback-modal__thumb--active');
+    const err = document.getElementById('fb-error');
+    err.classList.add('hidden');
+    err.textContent = '';
+
+    if (!ratingBtn) {
+      err.textContent = 'Pick 👍 or 👎 first.';
+      err.classList.remove('hidden');
+      return;
+    }
+
+    const rating = ratingBtn.getAttribute('data-rating');
+    const feedback = document.getElementById('fb-text').value.trim();
+
+    const submitBtn = document.getElementById('fb-submit');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+
+    try {
+      const res = await fetch('/api/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          toolId: tool.id,
+          toolName: tool.name,
+          builderEmail: tool.builder || '',
+          rating,
+          feedback
+        })
+      });
+
+      if (!res.ok) {
+        let msg = 'Something went wrong — try again.';
+        try { const j = await res.json(); if (j.error) msg = j.error; } catch {}
+        err.textContent = msg;
+        err.classList.remove('hidden');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send feedback';
+        return;
+      }
+
+      this.close();
+      Toast.show('Thanks — feedback sent to the builder.');
+    } catch {
+      err.textContent = 'Network error — try again.';
+      err.classList.remove('hidden');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send feedback';
+    }
+  }
+};
+
+/* ── Toast (small top-right notification) ────────────────── */
+
+const Toast = {
+  show(message, ms = 3500) {
+    let el = document.getElementById('sgm-toast');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'sgm-toast';
+      el.className = 'toast';
+      document.body.appendChild(el);
+    }
+    el.textContent = message;
+    el.classList.add('toast--visible');
+    clearTimeout(this._t);
+    this._t = setTimeout(() => el.classList.remove('toast--visible'), ms);
+  }
+};
+
 /* ── Tool Detail Helpers ─────────────────────────────────── */
 
 // Accept both naming conventions so the dashboard tolerates field-name drift
@@ -166,6 +341,15 @@ const ToolsPage = {
       }
     };
     grid.addEventListener('click', (e) => {
+      // Feedback button (in popover) — open modal, stop card-level navigation
+      const fbBtn = e.target.closest('[data-feedback-id]');
+      if (fbBtn) {
+        e.stopPropagation();
+        const id = fbBtn.getAttribute('data-feedback-id');
+        const tool = this.allTools.find(t => t.id === id);
+        if (tool) FeedbackModal.open(tool);
+        return;
+      }
       if (e.target.closest('a')) return;
       const card = e.target.closest('.tool-card[data-href]');
       if (card) navigateFromCard(card);
@@ -237,31 +421,35 @@ const ToolsPage = {
     const cardTarget = hasDetail ? '_self' : '_blank';
     const cardRel = hasDetail ? '' : 'rel="noopener"';
 
-    // Popover buttons — keep direct-link behaviour, stop card-level navigation
-    let buttonsHTML = '';
-    if (hasPromptLink || hasToolLink || hasDetail) {
-      buttonsHTML = '<div class="tool-card__pop-buttons">';
-      if (hasPromptLink) {
-        buttonsHTML += `<a href="${escapeHTML(tool.promptLink)}" target="_blank" rel="noopener" class="tool-card__pop-btn tool-card__pop-btn--outline" onclick="event.stopPropagation()">
-          Explore
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-        </a>`;
-      }
-      if (hasToolLink) {
-        buttonsHTML += `<a href="${escapeHTML(tool.link)}" target="_blank" rel="noopener" class="tool-card__pop-btn" onclick="event.stopPropagation()">
-          Use Tool
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
-        </a>`;
-      }
-      if (hasDetail) {
-        buttonsHTML += `<a href="tool.html?id=${encodeURIComponent(tool.id)}" class="tool-card__pop-btn tool-card__pop-btn--outline" onclick="event.stopPropagation()">
-          Details
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-        </a>`;
-      }
-      buttonsHTML += '</div>';
-    } else {
-      buttonsHTML = '<span class="tool-card__pop-btn tool-card__pop-btn--disabled">Coming Soon</span>';
+    // Popover buttons — keep direct-link behaviour, stop card-level navigation.
+    // Feedback button always renders; the others are conditional on link/detail availability.
+    const noActionButtons = !hasPromptLink && !hasToolLink && !hasDetail;
+    let buttonsHTML = '<div class="tool-card__pop-buttons">';
+    if (hasPromptLink) {
+      buttonsHTML += `<a href="${escapeHTML(tool.promptLink)}" target="_blank" rel="noopener" class="tool-card__pop-btn tool-card__pop-btn--outline" onclick="event.stopPropagation()">
+        Explore
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      </a>`;
+    }
+    if (hasToolLink) {
+      buttonsHTML += `<a href="${escapeHTML(tool.link)}" target="_blank" rel="noopener" class="tool-card__pop-btn" onclick="event.stopPropagation()">
+        Use Tool
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+      </a>`;
+    }
+    if (hasDetail) {
+      buttonsHTML += `<a href="tool.html?id=${encodeURIComponent(tool.id)}" class="tool-card__pop-btn tool-card__pop-btn--outline" onclick="event.stopPropagation()">
+        Details
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      </a>`;
+    }
+    buttonsHTML += `<button type="button" class="tool-card__pop-btn tool-card__pop-btn--outline" data-feedback-id="${escapeHTML(tool.id)}">
+      Feedback
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </button>`;
+    buttonsHTML += '</div>';
+    if (noActionButtons) {
+      buttonsHTML = '<span class="tool-card__pop-coming">Coming soon</span>' + buttonsHTML;
     }
 
     const detailBadge = hasDetail
@@ -857,6 +1045,12 @@ const ToolDetailPage = {
       img.alt = `${tool.name} screenshot`;
       img.loading = 'lazy';
       screenshotSection.classList.remove('hidden');
+    }
+
+    // Feedback button — always shown on the detail page
+    const fbBtn = document.getElementById('td-feedback-btn');
+    if (fbBtn) {
+      fbBtn.addEventListener('click', () => FeedbackModal.open(tool));
     }
   }
 };
