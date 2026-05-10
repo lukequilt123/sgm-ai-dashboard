@@ -37,12 +37,28 @@ function escapeHTML(str) {
 
 /* ── Tool Detail Helpers ─────────────────────────────────── */
 
-const TOOL_DETAIL_KEYS = ['description', 'howItWorks', 'systemsUsed', 'screenshotUrl'];
+// Accept both naming conventions so the dashboard tolerates field-name drift
+// in the Apps Script (e.g. screenshotUrl vs screenGrab, systemsUsed vs techUsed).
+const TOOL_DETAIL_KEYS = [
+  'description',
+  'howItWorks',
+  'systemsUsed', 'techUsed',
+  'screenshotUrl', 'screenGrab'
+];
 
 function hasDetailContent(tool) {
   return TOOL_DETAIL_KEYS.some(k =>
     typeof tool[k] === 'string' && tool[k].trim().length > 0
   );
+}
+
+// Read a detail field, accepting either canonical or alt name.
+function detailField(tool, ...keys) {
+  for (const k of keys) {
+    const v = tool[k];
+    if (typeof v === 'string' && v.trim()) return v.trim();
+  }
+  return '';
 }
 
 /* ── Tools Page Module ───────────────────────────────────── */
@@ -722,10 +738,17 @@ const ToolDetailPage = {
 
     const hasToolLink = tool.link && tool.link.trim() !== '';
     const hasPromptLink = tool.promptLink && tool.promptLink.trim() !== '';
-    const hasDescription = tool.description && tool.description.trim() !== '';
-    const hasHowItWorks = tool.howItWorks && tool.howItWorks.trim() !== '';
-    const hasSystems = tool.systemsUsed && tool.systemsUsed.trim() !== '';
-    const hasScreenshot = tool.screenshotUrl && tool.screenshotUrl.trim() !== '';
+
+    // Read detail fields tolerantly — Apps Script may emit either naming
+    const description = detailField(tool, 'description');
+    const howItWorks  = detailField(tool, 'howItWorks');
+    const systemsUsed = detailField(tool, 'systemsUsed', 'techUsed');
+    const screenshot  = detailField(tool, 'screenshotUrl', 'screenGrab');
+
+    const hasDescription = description !== '';
+    const hasHowItWorks  = howItWorks !== '';
+    const hasSystems     = systemsUsed !== '';
+    const hasScreenshot  = screenshot !== '';
 
     // Hero
     document.getElementById('td-icon').className = `tool-detail__icon tool-card__icon--${pInfo.cls}`;
@@ -763,7 +786,7 @@ const ToolDetailPage = {
     if (hasDescription) {
       const descBody = document.getElementById('td-description');
       descBody.innerHTML = '';
-      tool.description.split(/\n\s*\n/).forEach(para => {
+      description.split(/\n\s*\n/).forEach(para => {
         const trimmed = para.trim();
         if (!trimmed) return;
         const p = document.createElement('p');
@@ -778,7 +801,7 @@ const ToolDetailPage = {
     if (hasHowItWorks) {
       const list = document.getElementById('td-steps');
       list.innerHTML = '';
-      const steps = tool.howItWorks
+      const steps = howItWorks
         .split(/\||\n/)
         .map(s => s.trim())
         .filter(Boolean);
@@ -795,7 +818,7 @@ const ToolDetailPage = {
     if (hasSystems) {
       const wrap = document.getElementById('td-systems');
       wrap.innerHTML = '';
-      tool.systemsUsed.split(',').map(s => s.trim()).filter(Boolean).forEach(name => {
+      systemsUsed.split(',').map(s => s.trim()).filter(Boolean).forEach(name => {
         const span = document.createElement('span');
         span.className = 'tool-detail__system-pill';
         span.textContent = name;
@@ -808,7 +831,7 @@ const ToolDetailPage = {
     const screenshotSection = document.getElementById('td-screenshot-section');
     if (hasScreenshot) {
       const img = document.getElementById('td-screenshot');
-      img.src = tool.screenshotUrl;
+      img.src = screenshot;
       img.alt = `${tool.name} screenshot`;
       img.loading = 'lazy';
       screenshotSection.classList.remove('hidden');
