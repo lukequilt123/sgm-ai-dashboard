@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SGM AI Dashboard — Tool</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2326153A'/><text x='16' y='22' font-size='18' text-anchor='middle' fill='white'>S</text></svg>">
+</head>
+<body>
+
+  <!-- Background Effects -->
+  <div class="orb-container">
+    <div class="orb orb--1"></div>
+    <div class="orb orb--2"></div>
+  </div>
+  <div class="grain-overlay"></div>
+
+  <div class="portal-page">
+
+    <!-- Navigation -->
+    <nav class="portal-nav">
+      <a href="home.html">
+        <img
+          src="https://cdn.brandfetch.io/id6AGii4MS/w/396/h/126/theme/dark/logo.png?c=1bxid64Mup7aczewSAYMX&t=1740480772206"
+          alt="Sleeping Giant Media"
+          class="portal-nav__logo"
+        >
+      </a>
+      <button class="portal-nav__hamburger" onclick="document.querySelector('.portal-nav__links').classList.toggle('portal-nav__links--open')" aria-label="Toggle menu">&#9776;</button>
+      <ul class="portal-nav__links">
+        <li><a href="home.html" class="portal-nav__link">Home</a></li>
+        <li><a href="tools.html" class="portal-nav__link">AI Tools</a></li>
+        <li><a href="prompts.html" class="portal-nav__link">Prompts</a></li>
+        <li><a href="claude-code.html" class="portal-nav__link">Claude Code</a></li>
+      </ul>
+    </nav>
+
+    <!-- Content -->
+    <main class="page-content">
+
+      <a href="tools.html" class="tool-detail__back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to AI Tools
+      </a>
+
+      <!-- Detail content (populated by ToolDetailPage controller) -->
+      <article id="tool-detail-root" class="tool-detail fade-in">
+
+        <!-- Hero -->
+        <header class="tool-detail__hero glass-card">
+          <div class="tool-detail__hero-top">
+            <div id="td-icon" class="tool-detail__icon">?</div>
+            <div class="tool-detail__hero-meta">
+              <div class="tool-detail__platform">
+                <span id="td-platform-dot" class="platform-dot"></span>
+                <span id="td-platform">Platform · Type</span>
+              </div>
+              <h1 id="td-name" class="tool-detail__name gradient-text">Tool name</h1>
+              <p id="td-usecase" class="tool-detail__usecase"></p>
+              <div class="tool-detail__pills">
+                <span id="td-category" class="badge badge--ready-for-review"></span>
+              </div>
+            </div>
+          </div>
+
+          <div id="td-ctas" class="tool-detail__ctas"></div>
+
+          <div class="tool-detail__credits">
+            <div>
+              <div class="tool-detail__credit-label">Owner</div>
+              <div id="td-owner" class="tool-detail__credit-value">—</div>
+            </div>
+            <div>
+              <div class="tool-detail__credit-label">Builder</div>
+              <div id="td-builder" class="tool-detail__credit-value">—</div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Description -->
+        <section id="td-description-section" class="hidden">
+          <div class="section-label">What it is</div>
+          <div id="td-description" class="tool-detail__description glass-card"></div>
+        </section>
+
+        <!-- How it works -->
+        <section id="td-steps-section" class="hidden">
+          <div class="section-label">How it works</div>
+          <ol id="td-steps" class="tool-detail__steps glass-card"></ol>
+        </section>
+
+        <!-- Systems used -->
+        <section id="td-systems-section" class="hidden">
+          <div class="section-label">Systems &amp; integrations</div>
+          <div id="td-systems" class="tool-detail__systems glass-card"></div>
+        </section>
+
+        <!-- Screenshot -->
+        <section id="td-screenshot-section" class="hidden">
+          <div class="section-label">Preview</div>
+          <div class="tool-detail__screenshot glass-card">
+            <img id="td-screenshot" alt="">
+          </div>
+        </section>
+
+      </article>
+
+      <!-- Empty / not found state -->
+      <div id="tool-detail-empty" class="tool-detail__empty hidden">
+        <div class="tool-grid__empty-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <p class="tool-grid__empty-title">Tool not found</p>
+        <p class="tool-grid__empty-text">We couldn't find a tool with that ID.</p>
+        <a href="tools.html" class="btn-outline">Back to AI Tools</a>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

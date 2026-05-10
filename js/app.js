@@ -34,6 +34,16 @@ function escapeHTML(str) {
   return div.innerHTML;
 }
 
+/* ── Tool Detail Helpers ─────────────────────────────────── */
+
+const TOOL_DETAIL_KEYS = ['description', 'howItWorks', 'systemsUsed', 'screenshotUrl'];
+
+function hasDetailContent(tool) {
+  return TOOL_DETAIL_KEYS.some(k =>
+    typeof tool[k] === 'string' && tool[k].trim().length > 0
+  );
+}
+
 /* ── Tools Page Module ───────────────────────────────────── */
 
 const ToolsPage = {
@@ -101,6 +111,33 @@ const ToolsPage = {
         this.applyFilters();
       });
     });
+
+    // Delegated card-click navigation: cards with data-href open the link.
+    // Clicks on inner anchors (popover buttons) bubble first but `closest('a')`
+    // detects them so we skip card-level navigation in that case.
+    const grid = document.getElementById('tool-grid');
+    const navigateFromCard = (card) => {
+      const href = card.getAttribute('data-href');
+      const target = card.getAttribute('data-target') || '_self';
+      if (!href) return;
+      if (target === '_blank') {
+        window.open(href, '_blank', 'noopener');
+      } else {
+        window.location.href = href;
+      }
+    };
+    grid.addEventListener('click', (e) => {
+      if (e.target.closest('a')) return;
+      const card = e.target.closest('.tool-card[data-href]');
+      if (card) navigateFromCard(card);
+    });
+    grid.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      const card = e.target.closest('.tool-card[data-href]');
+      if (!card) return;
+      e.preventDefault();
+      navigateFromCard(card);
+    });
   },
 
   applyFilters() {
@@ -140,6 +177,7 @@ const ToolsPage = {
     const hasPromptLink = tool.promptLink && tool.promptLink.trim() !== '';
     const hasToolLink = tool.link && tool.link.trim() !== '';
     const delay = Math.min(index * 0.05, 0.4);
+    const hasDetail = hasDetailContent(tool);
 
     // Platform icon class & letter
     const platformKey = (tool.aiPlatform || '').toLowerCase().replace(/\s+/g, '');
@@ -153,18 +191,25 @@ const ToolsPage = {
     const pInfo = platformMap[platformKey] || { cls: 'default', letter: (tool.aiPlatform || '?')[0].toUpperCase() };
     const dotCls = 'platform-dot--' + pInfo.cls;
 
-    // Build button HTML
+    // Card-level link target: detail page if write-up exists, else direct to tool
+    const cardHref = hasDetail
+      ? `tool.html?id=${encodeURIComponent(tool.id)}`
+      : (hasToolLink ? tool.link : '#');
+    const cardTarget = hasDetail ? '_self' : '_blank';
+    const cardRel = hasDetail ? '' : 'rel="noopener"';
+
+    // Popover buttons — keep direct-link behaviour, stop card-level navigation
     let buttonsHTML = '';
     if (hasPromptLink || hasToolLink) {
       buttonsHTML = '<div class="tool-card__pop-buttons">';
       if (hasPromptLink) {
-        buttonsHTML += `<a href="${escapeHTML(tool.promptLink)}" target="_blank" rel="noopener" class="tool-card__pop-btn tool-card__pop-btn--outline">
+        buttonsHTML += `<a href="${escapeHTML(tool.promptLink)}" target="_blank" rel="noopener" class="tool-card__pop-btn tool-card__pop-btn--outline" onclick="event.stopPropagation()">
           Explore
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
         </a>`;
       }
       if (hasToolLink) {
-        buttonsHTML += `<a href="${escapeHTML(tool.link)}" target="_blank" rel="noopener" class="tool-card__pop-btn">
+        buttonsHTML += `<a href="${escapeHTML(tool.link)}" target="_blank" rel="noopener" class="tool-card__pop-btn" onclick="event.stopPropagation()">
           Use Tool
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
         </a>`;
@@ -174,11 +219,21 @@ const ToolsPage = {
       buttonsHTML = '<span class="tool-card__pop-btn tool-card__pop-btn--disabled">Coming Soon</span>';
     }
 
+    const detailBadge = hasDetail
+      ? '<span class="tool-card__detail-badge" aria-label="Has detail page">Details</span>'
+      : '';
+
+    const isClickable = cardHref !== '#';
+    const cardAttrs = isClickable
+      ? `role="link" tabindex="0" data-href="${escapeHTML(cardHref)}" data-target="${cardTarget}"`
+      : '';
+
     return `
-      <div class="tool-card glass-card fade-in" style="animation-delay: ${delay}s">
+      <div class="tool-card glass-card fade-in${isClickable ? ' tool-card--clickable' : ''}" ${cardAttrs} style="animation-delay: ${delay}s">
         <div class="tool-card__icon tool-card__icon--${pInfo.cls}">${pInfo.letter}</div>
         <div class="tool-card__name">${escapeHTML(tool.name)}</div>
         <div class="tool-card__category">${escapeHTML(tool.category)}</div>
+        ${detailBadge}
         <div class="tool-card__popover">
           <div class="tool-card__pop-name">${escapeHTML(tool.name)}</div>
           <div class="tool-card__pop-platform">
@@ -598,12 +653,166 @@ const ClaudePage = {
   }
 };
 
+/* ── Tool Detail Page Module ─────────────────────────────── */
+
+const ToolDetailPage = {
+  async init() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    const root = document.getElementById('tool-detail-root');
+    const empty = document.getElementById('tool-detail-empty');
+
+    if (!id) {
+      this.showEmpty();
+      return;
+    }
+
+    try {
+      const data = await DataService.fetch(CONFIG.toolsDataUrl);
+      const tool = (data.tools || []).find(t => t.id === id);
+
+      if (!tool) {
+        this.showEmpty();
+        return;
+      }
+
+      // No detail content for this tool → send straight to the external link.
+      if (!hasDetailContent(tool)) {
+        if (tool.link && tool.link.trim() !== '') {
+          window.location.replace(tool.link);
+          return;
+        }
+        this.showEmpty();
+        return;
+      }
+
+      this.render(tool);
+    } catch (err) {
+      console.error('Failed to load tool detail:', err);
+      this.showEmpty();
+    }
+  },
+
+  showEmpty() {
+    const root = document.getElementById('tool-detail-root');
+    const empty = document.getElementById('tool-detail-empty');
+    if (root) root.classList.add('hidden');
+    if (empty) empty.classList.remove('hidden');
+  },
+
+  render(tool) {
+    document.title = `SGM AI Dashboard — ${tool.name}`;
+
+    const platformKey = (tool.aiPlatform || '').toLowerCase().replace(/\s+/g, '');
+    const platformMap = {
+      chatgpt: { cls: 'chatgpt', letter: 'G' },
+      openai:  { cls: 'chatgpt', letter: 'G' },
+      claude:  { cls: 'claude', letter: 'C' },
+      gemini:  { cls: 'gemini', letter: 'G' },
+      midjourney: { cls: 'midjourney', letter: 'M' }
+    };
+    const pInfo = platformMap[platformKey] || { cls: 'default', letter: (tool.aiPlatform || '?')[0].toUpperCase() };
+
+    const hasToolLink = tool.link && tool.link.trim() !== '';
+    const hasPromptLink = tool.promptLink && tool.promptLink.trim() !== '';
+    const hasDescription = tool.description && tool.description.trim() !== '';
+    const hasHowItWorks = tool.howItWorks && tool.howItWorks.trim() !== '';
+    const hasSystems = tool.systemsUsed && tool.systemsUsed.trim() !== '';
+    const hasScreenshot = tool.screenshotUrl && tool.screenshotUrl.trim() !== '';
+
+    // Hero
+    document.getElementById('td-icon').className = `tool-detail__icon tool-card__icon--${pInfo.cls}`;
+    document.getElementById('td-icon').textContent = pInfo.letter;
+    document.getElementById('td-name').textContent = tool.name || '';
+    document.getElementById('td-platform').textContent = `${tool.aiPlatform || ''} · ${tool.aiType || ''}`;
+    document.getElementById('td-platform-dot').className = `platform-dot platform-dot--${pInfo.cls}`;
+    document.getElementById('td-category').textContent = tool.category || '';
+    document.getElementById('td-usecase').textContent = tool.primaryUseCase || '';
+
+    // CTAs
+    const ctaWrap = document.getElementById('td-ctas');
+    ctaWrap.innerHTML = '';
+    if (hasToolLink) {
+      ctaWrap.insertAdjacentHTML('beforeend',
+        `<a href="${escapeHTML(tool.link)}" target="_blank" rel="noopener" class="btn-gradient">
+           Use Tool
+           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+         </a>`);
+    }
+    if (hasPromptLink) {
+      ctaWrap.insertAdjacentHTML('beforeend',
+        `<a href="${escapeHTML(tool.promptLink)}" target="_blank" rel="noopener" class="btn-outline">
+           View Prompt
+           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+         </a>`);
+    }
+
+    // Meta
+    document.getElementById('td-owner').textContent = tool.owner || '—';
+    document.getElementById('td-builder').textContent = tool.builder || '—';
+
+    // Description
+    const descSection = document.getElementById('td-description-section');
+    if (hasDescription) {
+      const descBody = document.getElementById('td-description');
+      descBody.innerHTML = '';
+      tool.description.split(/\n\s*\n/).forEach(para => {
+        const trimmed = para.trim();
+        if (!trimmed) return;
+        const p = document.createElement('p');
+        p.textContent = trimmed;
+        descBody.appendChild(p);
+      });
+      descSection.classList.remove('hidden');
+    }
+
+    // How it works
+    const stepsSection = document.getElementById('td-steps-section');
+    if (hasHowItWorks) {
+      const list = document.getElementById('td-steps');
+      list.innerHTML = '';
+      const steps = tool.howItWorks
+        .split(/\||\n/)
+        .map(s => s.trim())
+        .filter(Boolean);
+      steps.forEach(step => {
+        const li = document.createElement('li');
+        li.textContent = step;
+        list.appendChild(li);
+      });
+      stepsSection.classList.remove('hidden');
+    }
+
+    // Systems used
+    const systemsSection = document.getElementById('td-systems-section');
+    if (hasSystems) {
+      const wrap = document.getElementById('td-systems');
+      wrap.innerHTML = '';
+      tool.systemsUsed.split(',').map(s => s.trim()).filter(Boolean).forEach(name => {
+        const span = document.createElement('span');
+        span.className = 'tool-detail__system-pill';
+        span.textContent = name;
+        wrap.appendChild(span);
+      });
+      systemsSection.classList.remove('hidden');
+    }
+
+    // Screenshot
+    const screenshotSection = document.getElementById('td-screenshot-section');
+    if (hasScreenshot) {
+      const img = document.getElementById('td-screenshot');
+      img.src = tool.screenshotUrl;
+      img.alt = `${tool.name} screenshot`;
+      img.loading = 'lazy';
+      screenshotSection.classList.remove('hidden');
+    }
+  }
+};
+
 /* ── Page Init ───────────────────────────────────────────── */
 
 document.addEventListener('DOMContentLoaded', () => {
   setActiveNav();
-
-  if (!Auth.isAuthenticated()) return;
 
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
 
@@ -615,5 +824,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ClaudePage.init();
   } else if (currentPage === 'home.html') {
     LatestContentModule.init();
+  } else if (currentPage === 'tool.html') {
+    ToolDetailPage.init();
   }
 });

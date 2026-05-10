@@ -15,10 +15,15 @@
  *
  * SHEET TABS:
  *
- * "AI Tools" (cols A-K):
+ * "AI Tools" (cols A-O):
  *   A: TOOL NAME  B: AI PLATFORM  C: AI TYPE  D: CATEGORY/POD
  *   E: PRIMARY USE CASE  F: LINK TO TOOL  G: LINK TO GOOGLE DOC CONTAINING PROMPT TEXT
  *   H: BUILDER (EMAIL)  I: OWNER  J: ADD TO DASHBOARD  K: DATE ADDED
+ *   L: DESCRIPTION (long-form)  M: HOW IT WORKS (steps separated by | or newlines)
+ *   N: SYSTEMS USED (comma-separated)  O: SCREENSHOT URL
+ *   Cols L-O are optional. If all four are blank for a row, the dashboard
+ *   links its card straight to the tool. If any are populated, the card
+ *   instead routes through tool.html?id=… (the intermediate detail page).
  *
  * "Prompts" (cols A-H):
  *   A: PROMPT NAME  B: MAIN MODEL  C: CATEGORY/POD  D: PRIMARY USE CASE
@@ -57,7 +62,7 @@ function pushToolsToDashboard() {
   }
 
   const lastRow = sheet.getLastRow();
-  const lastCol = 11; // Columns A-K
+  const lastCol = 15; // Columns A-O
 
   if (lastRow < 2) {
     ui.alert('No tool data found.');
@@ -67,17 +72,21 @@ function pushToolsToDashboard() {
   const dataRows = sheet.getRange(2, 1, lastRow - 1, lastCol).getValues();
 
   const COL = {
-    NAME: 0,        // A: TOOL NAME
-    PLATFORM: 1,    // B: AI PLATFORM
-    AI_TYPE: 2,     // C: AI TYPE
-    CATEGORY: 3,    // D: CATEGORY/POD
-    USE_CASE: 4,    // E: PRIMARY USE CASE
-    LINK: 5,        // F: LINK TO TOOL
-    PROMPT_LINK: 6, // G: LINK TO GOOGLE DOC CONTAINING PROMPT TEXT
-    BUILDER: 7,     // H: BUILDER (EMAIL)
-    OWNER: 8,       // I: OWNER
-    DASHBOARD: 9,   // J: ADD TO DASHBOARD
-    DATE_ADDED: 10  // K: DATE ADDED
+    NAME: 0,         // A: TOOL NAME
+    PLATFORM: 1,     // B: AI PLATFORM
+    AI_TYPE: 2,      // C: AI TYPE
+    CATEGORY: 3,     // D: CATEGORY/POD
+    USE_CASE: 4,     // E: PRIMARY USE CASE
+    LINK: 5,         // F: LINK TO TOOL
+    PROMPT_LINK: 6,  // G: LINK TO GOOGLE DOC CONTAINING PROMPT TEXT
+    BUILDER: 7,      // H: BUILDER (EMAIL)
+    OWNER: 8,        // I: OWNER
+    DASHBOARD: 9,    // J: ADD TO DASHBOARD
+    DATE_ADDED: 10,  // K: DATE ADDED
+    DESCRIPTION: 11, // L: DESCRIPTION (long-form)
+    HOW_IT_WORKS: 12,// M: HOW IT WORKS (steps separated by | or newlines)
+    SYSTEMS_USED: 13,// N: SYSTEMS USED (comma-separated)
+    SCREENSHOT: 14   // O: SCREENSHOT URL
   };
 
   const tools = [];
@@ -91,16 +100,20 @@ function pushToolsToDashboard() {
 
     tools.push({
       id: 'tool-' + String(i + 1).padStart(3, '0'),
-      name:           row[COL.NAME]        ? row[COL.NAME].toString().trim()        : '',
-      aiPlatform:     row[COL.PLATFORM]    ? row[COL.PLATFORM].toString().trim()    : '',
-      aiType:         row[COL.AI_TYPE]     ? row[COL.AI_TYPE].toString().trim()     : '',
-      category:       row[COL.CATEGORY]    ? row[COL.CATEGORY].toString().trim()    : '',
-      primaryUseCase: row[COL.USE_CASE]    ? row[COL.USE_CASE].toString().trim()    : '',
-      promptLink:     row[COL.PROMPT_LINK] ? row[COL.PROMPT_LINK].toString().trim() : '',
-      builder:        row[COL.BUILDER]     ? row[COL.BUILDER].toString().trim()     : '',
-      owner:          row[COL.OWNER]       ? row[COL.OWNER].toString().trim()       : '',
-      link:           row[COL.LINK]        ? row[COL.LINK].toString().trim()        : '',
-      dateAdded:      row[COL.DATE_ADDED]  ? formatDateForJson(row[COL.DATE_ADDED]) : ''
+      name:           row[COL.NAME]         ? row[COL.NAME].toString().trim()         : '',
+      aiPlatform:     row[COL.PLATFORM]     ? row[COL.PLATFORM].toString().trim()     : '',
+      aiType:         row[COL.AI_TYPE]      ? row[COL.AI_TYPE].toString().trim()      : '',
+      category:       row[COL.CATEGORY]     ? row[COL.CATEGORY].toString().trim()     : '',
+      primaryUseCase: row[COL.USE_CASE]     ? row[COL.USE_CASE].toString().trim()     : '',
+      promptLink:     row[COL.PROMPT_LINK]  ? row[COL.PROMPT_LINK].toString().trim()  : '',
+      builder:        row[COL.BUILDER]      ? row[COL.BUILDER].toString().trim()      : '',
+      owner:          row[COL.OWNER]        ? row[COL.OWNER].toString().trim()        : '',
+      link:           row[COL.LINK]         ? row[COL.LINK].toString().trim()         : '',
+      dateAdded:      row[COL.DATE_ADDED]   ? formatDateForJson(row[COL.DATE_ADDED])  : '',
+      description:    row[COL.DESCRIPTION]  ? row[COL.DESCRIPTION].toString().trim()  : '',
+      howItWorks:     row[COL.HOW_IT_WORKS] ? row[COL.HOW_IT_WORKS].toString().trim() : '',
+      systemsUsed:    row[COL.SYSTEMS_USED] ? row[COL.SYSTEMS_USED].toString().trim() : '',
+      screenshotUrl:  row[COL.SCREENSHOT]   ? row[COL.SCREENSHOT].toString().trim()   : ''
     });
   }
 

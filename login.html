@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SGM AI Dashboard — Sign In</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2326153A'/><text x='16' y='22' font-size='18' text-anchor='middle' fill='white'>S</text></svg>">
+</head>
+<body>
+
+  <!-- Background Effects -->
+  <div class="orb-container">
+    <div class="orb orb--1"></div>
+    <div class="orb orb--2"></div>
+  </div>
+  <div class="grain-overlay"></div>
+
+  <div class="password-gate">
+    <div class="password-card">
+      <img src="https://cdn.brandfetch.io/id6AGii4MS/w/396/h/126/theme/dark/logo.png?c=1bxid64Mup7aczewSAYMX&t=1740480772206"
+           alt="Sleeping Giant Media" class="password-card__logo">
+      <h1 class="password-card__title">AI Dashboard</h1>
+      <p class="password-card__subtitle">Enter your access code to continue</p>
+
+      <form id="login-form" autocomplete="off">
+        <input type="password" class="password-card__input" id="pw-input"
+               name="password" placeholder="Access code" autocomplete="off" required>
+        <button type="submit" class="password-card__submit" id="pw-submit">Enter Dashboard</button>
+        <p class="password-card__error hidden" id="pw-error">Incorrect access code</p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const form = document.getElementById('login-form');
+      const input = document.getElementById('pw-input');
+      const error = document.getElementById('pw-error');
+      const submit = document.getElementById('pw-submit');
+
+      // Where to send the user after successful login (preserve ?next=…)
+      const params = new URLSearchParams(window.location.search);
+      const next = params.get('next') || '/home.html';
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        error.classList.add('hidden');
+        submit.disabled = true;
+        submit.textContent = 'Checking…';
+
+        try {
+          const res = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password: input.value })
+          });
+
+          if (res.ok) {
+            window.location.replace(next);
+            return;
+          }
+
+          error.classList.remove('hidden');
+          input.value = '';
+          input.focus();
+        } catch (err) {
+          error.textContent = 'Network error — try again';
+          error.classList.remove('hidden');
+        } finally {
+          submit.disabled = false;
+          submit.textContent = 'Enter Dashboard';
+        }
+      });
+
+      setTimeout(() => input.focus(), 50);
+    })();
+  </script>
+</body>
+</html>
