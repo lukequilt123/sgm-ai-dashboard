@@ -40,8 +40,9 @@
       const submit = document.getElementById('pw-submit');
 
       // Where to send the user after successful login (preserve ?next=…)
+      // Default to /home (no .html) so CF Pages doesn't 308 on the redirect.
       const params = new URLSearchParams(window.location.search);
-      const next = params.get('next') || '/home.html';
+      const next = params.get('next') || '/home';
 
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
