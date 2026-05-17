@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-10T10:11:50.396Z",
+  "lastUpdated": "2026-05-17T11:11:02.768Z",
   "tools": [
     {
       "id": "tool-001",
@@ -472,10 +472,10 @@
       "owner": "Nikki",
       "link": "https://n8n.sleepingaigiant.com/form/f9241b3b-5a62-4eaf-95df-1e0b1783b819",
       "dateAdded": "",
-      "description": "",
-      "howItWorks": "",
-      "techUsed": "",
-      "screenGrab": ""
+      "description": "An automated AI-search visibility audit. Give it any website URL and it scores how well that site is set up to be found and cited by AI-powered search — Google AI Overviews, ChatGPT, Perplexity and Bing Copilot — then returns a branded Sleeping Giant Media PDF report and writes the results to a Google Sheet. It replaces a manual GEO audit that used to take hours with a consistent, repeatable score in under a minute.",
+      "howItWorks": "A website URL is submitted to the audit API (triggered from n8n, a form, or a direct request).\nThe tool crawls the site — homepage, key pages, robots.txt and sitemap — fetching directly first and falling back to a cloud crawler for bot-protected sites.\nIt scores the site deterministically across 10 weighted GEO categories (crawlability, citability, schema, authority, AI-crawler access, and more). No AI/LLM is used in the scoring — the same site always gets the same score.\nFrom those scores it produces an overall 0–100 rating, four platform sub-scores, a verdict, and prioritised findings and recommendations.\nThe results are rendered into a branded SGM PDF and, if a Sheet is supplied, written into a Google Sheet for tracking.",
+      "techUsed": "Railway — hosts the service; deploys automatically on every push to GitHub.\nGitHub — source code; the single source of truth for what's live.\nn8n — orchestrates the workflow: triggers audits and routes the PDF onward to email/Drive.\nApify — fallback web crawler for sites behind CDN/bot protection.\nGoogle Sheets — audit results written to a tracking sheet via a service account.\nPlaywright / Chromium — renders the HTML report into a print-quality A4 PDF.\nPremier League \"Twin Audit\" (new) — a campaign variant running the same engine, benchmarking a prospect against the 20 PL clubs.",
+      "screenGrab": "https://drive.google.com/file/d/1vvTAdqvTiL9XZrVZYbsPk6ZiFYcQtS_u/view?usp=sharing"
     }
   ]
 }
