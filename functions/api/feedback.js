@@ -1,5 +1,5 @@
 // POST /api/feedback
-// Authenticated by the standard middleware (no public allowlist entry).
+// Gated at the edge by Cloudflare Access (SGM-domain email gate).
 // Proxies the request to the n8n webhook with a server-only secret header.
 // Server-injects timestamp and the CF-Access-authenticated user email so the
 // client can't forge those.
