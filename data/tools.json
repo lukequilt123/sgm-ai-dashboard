@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-18T12:38:46.103Z",
+  "lastUpdated": "2026-05-21T15:18:19.868Z",
   "tools": [
     {
       "id": "tool-001",
@@ -470,8 +470,8 @@
       "promptLink": "",
       "builder": "luke@sleepinggiantmedia.co.uk",
       "owner": "Nikki",
-      "link": "https://n8n.sleepingaigiant.com/form/f9241b3b-5a62-4eaf-95df-1e0b1783b819",
-      "dateAdded": "",
+      "link": "https://n8n.sleepingaigiant.com/form/8970f82d-c71b-4106-a173-89b32cfc5006",
+      "dateAdded": "2026-05-18",
       "description": "An automated AI-search visibility audit. Give it any website URL and it scores how well that site is set up to be found and cited by AI-powered search — Google AI Overviews, ChatGPT, Perplexity and Bing Copilot — then returns a branded Sleeping Giant Media PDF report and writes the results to a Google Sheet. It replaces a manual GEO audit that used to take hours with a consistent, repeatable score in under a minute.",
       "howItWorks": "A website URL is submitted to the audit API (triggered from n8n, a form, or a direct request).\nThe tool crawls the site — homepage, key pages, robots.txt and sitemap — fetching directly first and falling back to a cloud crawler for bot-protected sites.\nIt scores the site deterministically across 10 weighted GEO categories (crawlability, citability, schema, authority, AI-crawler access, and more). No AI/LLM is used in the scoring — the same site always gets the same score.\nFrom those scores it produces an overall 0–100 rating, four platform sub-scores, a verdict, and prioritised findings and recommendations.\nThe results are rendered into a branded SGM PDF and, if a Sheet is supplied, written into a Google Sheet for tracking.",
       "techUsed": "Railway — hosts the service; deploys automatically on every push to GitHub.\nGitHub — source code; the single source of truth for what's live.\nn8n — orchestrates the workflow: triggers audits and routes the PDF onward to email/Drive.\nApify — fallback web crawler for sites behind CDN/bot protection.\nGoogle Sheets — audit results written to a tracking sheet via a service account.\nPlaywright / Chromium — renders the HTML report into a print-quality A4 PDF.\nPremier League \"Twin Audit\" (new) — a campaign variant running the same engine, benchmarking a prospect against the 20 PL clubs.",
@@ -492,6 +492,23 @@
       "description": "An automated tool that will take design or presentation concepts and turn them into a designed SGM branded deck. Due to the nature of LLMs, the deck design is not consistent every time, so this may not be viable for external presentations. However, for internal presentations, it generally produces a great outcome",
       "howItWorks": "It works by taking the presentation idea or full contextual overview and running it through a detailed prompt that pulls on key SGM design elements to produce an output that is visualised within Gemini and can be exported to Google Slides. Albeit, once exported to Google Slides, the design element can change, but it is aimed to get the presentation to 80 or 90% of the way complete",
       "techUsed": "Google Gemini",
+      "screenGrab": ""
+    },
+    {
+      "id": "tool-037",
+      "name": "Single Content Audit",
+      "aiPlatform": "N8N",
+      "aiType": "API / Custom Integration",
+      "category": "All",
+      "primaryUseCase": "This is a mini content audit tool that will analyse five to ten pages on a client's website and extract insights and information on the website to give a seven-page PDF output, which will be perfect for lead gen conversations",
+      "promptLink": "",
+      "builder": "luke@sleepinggiantmedia.co.uk, steven@sleepinggiantmedia.co.uk",
+      "owner": "Luke/Steven",
+      "link": "https://n8n.sleepingaigiant.com/form/f9241b3b-5a62-4eaf-95df-1e0b1783b819",
+      "dateAdded": "2026-05-18",
+      "description": "An AI-powered audit tool that scans any website and produces a Sleeping Giant Media branded PDF report plus a structured Google Sheet row of the data. It scores the site against Google's E-E-A-T framework (Experience, Expertise, Authoritativeness, Trustworthiness) — the same signals Google and AI engines like ChatGPT and Perplexity use to decide what content to cite. We use it for prospect lead-gen, new client onboarding, discovery work, and identifying upsell opportunities across SEO, content, and (soon) Digital PR services.",
+      "howItWorks": "You give it a URL. It then runs a fully automated pipeline:\n\nSite map scan — pulls the site's sitemap to understand size and freshness\nPage selection — auto-picks 5–10 representative pages (home, about, services, case studies, blog) or accepts a manual list\nPage crawl + screenshots — renders each page in a real browser, capturing HTML, copy, structured data, and an above-the-fold screenshot\nOn-page analysis — extracts headings, schema markup, image alt-text coverage, internal/external links, and readability metrics\nOff-page entity check — looks up the brand in Google's Knowledge Graph, Wikidata, and runs a branded Google search to see how the brand shows up in the SERP (review sites, social profiles, knowledge panel)\nAI scoring — sends all the collected evidence to Claude (Anthropic's AI model), which scores the site against the E-E-A-T framework, identifies critical/high/medium/low issues, recommends actions, observes tone of voice, and flags upsell opportunities\nOutput — assembles the findings into a 7-slide branded PDF and writes the structured data into the Google Sheet\nEnd-to-end run time: ~2–4 minutes per audit. Cost per run: ~£0.10–0.25.",
+      "techUsed": "FastAPI (Python) — the web service that receives the audit request and runs the pipeline\nApify — cloud web scraping. Bypasses bot-blocking CDNs and renders pages with a real browser. Three actors: content crawler, screenshot, and Google SERP scraper\nAnthropic Claude (Sonnet 4.6) — the AI model that does the qualitative scoring and writes the findings. OpenAI GPT-4o as a fallback\nGoogle Knowledge Graph API + Wikidata API — off-site entity verification (does Google \"know\" this brand as a real entity?)\nPlaywright — headless browser used to render the final HTML report into a print-ready PDF\nJinja2 — templating engine that builds the branded HTML report from the audit data\ntextstat — Python library for objective readability metrics (Flesch–Kincaid grade, sentence length)\nhttpx — async HTTP client used for the broken-link checker\nGoogle Sheets API — writes the structured audit data into a shared spreadsheet for the team to filter and track\nRailway — cloud hosting. Auto-deploys whenever code is pushed to GitHub\nGitHub — source-code version control. The repo is lukequilt123/sgm-content-audit-api\nn8n — the workflow tool the team uses to trigger audits and route the PDF/Sheet output",
       "screenGrab": ""
     }
   ]
